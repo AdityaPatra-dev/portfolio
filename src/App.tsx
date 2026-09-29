@@ -21,23 +21,26 @@ export const App: React.FC = () => {
     <ThemeProvider>
       <Router>
         <ScrollToTop />
-        <div className="min-h-screen flex flex-col bg-[#fbfbf9] dark:bg-[#121316] text-[#1c1d21] dark:text-[#e4e4e7] transition-colors duration-200">
-          <Navbar />
-          <main className="flex-grow max-w-4xl w-full mx-auto px-5 sm:px-8 py-8">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/projects/:id" element={<ProjectDetailPage />} />
-              <Route path="/skills" element={<SkillsPage />} />
-              <Route path="/experience" element={<ExperiencePage />} />
-              <Route path="/notes" element={<NotesPage />} />
-              <Route path="/notes/:slug" element={<NoteDetailPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </main>
-          <Footer />
+        <div className="min-h-screen bg-[#f7f7f5] dark:bg-[#0c0d0f] text-[#1c1d21] dark:text-[#e4e4e7] transition-colors duration-200">
+          {/* Central architectural framed container with dashed borders matching Samworks */}
+          <div className="max-w-3xl w-full mx-auto border-x border-dashed border-zinc-200 dark:border-zinc-800 min-h-screen flex flex-col bg-[#fbfbf9] dark:bg-[#121316] shadow-sm">
+            <Navbar />
+            <main className="flex-grow px-4 sm:px-6 py-6">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/projects" element={<ProjectsPage />} />
+                <Route path="/projects/:id" element={<ProjectDetailPage />} />
+                <Route path="/skills" element={<SkillsPage />} />
+                <Route path="/experience" element={<ExperiencePage />} />
+                <Route path="/notes" element={<NotesPage />} />
+                <Route path="/notes/:slug" element={<NoteDetailPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
         </div>
       </Router>
     </ThemeProvider>

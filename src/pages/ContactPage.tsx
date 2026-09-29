@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { Mail, FileText, ArrowUpRight } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { profileData } from '../data/profile';
-import { ArrowUpRight } from 'lucide-react';
+import { ContactTile } from '../components/ContactTile';
+import { GithubIcon, LinkedinIcon } from '../components/icons';
 
 export const ContactPage: React.FC = () => {
   const [copied, setCopied] = useState<string | null>(null);
@@ -25,21 +27,49 @@ export const ContactPage: React.FC = () => {
   )}`;
 
   return (
-    <div className="space-y-10 max-w-2xl">
+    <div className="space-y-8">
       <PageHeader
         title="Contact"
         description="Feel free to reach out regarding technical internships, collaborative projects, or discussions around Cloud/DevOps and ML."
       />
 
+      {/* Social / Contact Grid (Dashed micro-interaction tiles) */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <ContactTile
+          label="GitHub"
+          sublabel={`@${profileData.githubUsername}`}
+          href={profileData.githubUrl}
+          icon={<GithubIcon className="w-4 h-4" />}
+        />
+        <ContactTile
+          label="LinkedIn"
+          sublabel="in/aditya-patra"
+          href={profileData.linkedinUrl}
+          icon={<LinkedinIcon className="w-4 h-4" />}
+        />
+        <ContactTile
+          label="Email"
+          sublabel="Direct Message"
+          href={`mailto:${profileData.email}`}
+          icon={<Mail className="w-4 h-4" />}
+        />
+        <ContactTile
+          label="Resume / CV"
+          sublabel="PDF Document"
+          href={profileData.resumePdfUrl}
+          icon={<FileText className="w-4 h-4" />}
+        />
+      </div>
+
       <div className="space-y-6 text-sm">
         {/* Direct Channels */}
         <div className="space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 font-semibold border-b border-zinc-200 dark:border-zinc-800 pb-1.5">
+          <h2 className="text-xl sm:text-2xl font-serif italic text-zinc-900 dark:text-zinc-100 border-b border-dashed border-zinc-200 dark:border-zinc-800 pb-2">
             Direct Channels
           </h2>
 
-          <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#18191e] p-5 rounded shadow-[0_1px_3px_rgba(0,0,0,0.02)] dark:shadow-none space-y-2 text-xs font-mono transition-colors">
-            <div className="flex items-baseline justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/80 pb-2">
+          <div className="border border-dashed border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-[#18191e]/50 p-5 rounded-lg space-y-2 text-xs font-mono transition-colors">
+            <div className="flex items-baseline justify-between py-1 border-b border-dashed border-zinc-100 dark:border-zinc-800/80 pb-2">
               <span className="text-zinc-500 dark:text-zinc-400">Email:</span>
               <div className="flex items-center gap-3">
                 <a
@@ -50,27 +80,27 @@ export const ContactPage: React.FC = () => {
                 </a>
                 <button
                   onClick={() => copyText(profileData.email, 'email')}
-                  className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200"
+                  className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 text-[11px]"
                 >
                   {copied === 'email' ? '[copied]' : '[copy]'}
                 </button>
               </div>
             </div>
 
-            <div className="flex items-baseline justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/80 pb-2">
+            <div className="flex items-baseline justify-between py-1 border-b border-dashed border-zinc-100 dark:border-zinc-800/80 pb-2">
               <span className="text-zinc-500 dark:text-zinc-400">Phone:</span>
               <div className="flex items-center gap-3">
                 <span className="text-zinc-800 dark:text-zinc-200">{profileData.phone}</span>
                 <button
                   onClick={() => copyText(profileData.phone, 'phone')}
-                  className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200"
+                  className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 text-[11px]"
                 >
                   {copied === 'phone' ? '[copied]' : '[copy]'}
                 </button>
               </div>
             </div>
 
-            <div className="flex items-baseline justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/80 pb-2">
+            <div className="flex items-baseline justify-between py-1 border-b border-dashed border-zinc-100 dark:border-zinc-800/80 pb-2">
               <span className="text-zinc-500 dark:text-zinc-400">GitHub:</span>
               <a
                 href={profileData.githubUrl}
@@ -99,15 +129,15 @@ export const ContactPage: React.FC = () => {
         </div>
 
         {/* Message Composer */}
-        <div className="border-t border-zinc-200 dark:border-zinc-800 pt-6 space-y-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 font-semibold">
-            Send an Email Message
+        <div className="border-t border-dashed border-zinc-200 dark:border-zinc-800 pt-6 space-y-3">
+          <h2 className="text-xl sm:text-2xl font-serif italic text-zinc-900 dark:text-zinc-100">
+            Send a Direct Message
           </h2>
-          <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Fill in the details below to compose directly in your mail client:
+          <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-mono">
+            Fill in the details below to compose directly in your default email client:
           </p>
 
-          <form onSubmit={(e) => e.preventDefault()} className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#18191e] p-5 rounded shadow-[0_1px_3px_rgba(0,0,0,0.02)] dark:shadow-none space-y-3 text-xs transition-colors">
+          <form onSubmit={(e) => e.preventDefault()} className="border border-dashed border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-[#18191e]/50 p-5 rounded-lg space-y-3 text-xs transition-colors">
             <div>
               <label htmlFor="name" className="block text-zinc-600 dark:text-zinc-400 font-mono mb-1">
                 Your Name
@@ -117,7 +147,7 @@ export const ContactPage: React.FC = () => {
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-3 py-2 rounded bg-[#fbfbf9] dark:bg-[#121316] border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-navy dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#18191e]"
+                className="w-full px-3 py-2 rounded-md bg-[#fbfbf9] dark:bg-[#121316] border border-dashed border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-navy dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#18191e]"
                 placeholder="Name"
               />
             </div>
@@ -131,7 +161,7 @@ export const ContactPage: React.FC = () => {
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 py-2 rounded bg-[#fbfbf9] dark:bg-[#121316] border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-navy dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#18191e]"
+                className="w-full px-3 py-2 rounded-md bg-[#fbfbf9] dark:bg-[#121316] border border-dashed border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-navy dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#18191e]"
                 placeholder="Email address"
               />
             </div>
@@ -145,8 +175,8 @@ export const ContactPage: React.FC = () => {
                 type="text"
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                className="w-full px-3 py-2 rounded bg-[#fbfbf9] dark:bg-[#121316] border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-navy dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#18191e]"
-                placeholder="Topic / Role / Project"
+                className="w-full px-3 py-2 rounded-md bg-[#fbfbf9] dark:bg-[#121316] border border-dashed border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-navy dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#18191e]"
+                placeholder="Topic / Internship / Project"
               />
             </div>
 
@@ -159,7 +189,7 @@ export const ContactPage: React.FC = () => {
                 rows={4}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-3 py-2 rounded bg-[#fbfbf9] dark:bg-[#121316] border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-navy dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#18191e]"
+                className="w-full px-3 py-2 rounded-md bg-[#fbfbf9] dark:bg-[#121316] border border-dashed border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-navy dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#18191e]"
                 placeholder="Write your message here..."
               />
             </div>
@@ -167,7 +197,7 @@ export const ContactPage: React.FC = () => {
             <div className="pt-2">
               <a
                 href={mailtoUrl}
-                className="inline-block px-4 py-2 rounded bg-navy dark:bg-blue-600 hover:bg-navy-hover dark:hover:bg-blue-500 text-white font-mono text-xs transition-colors shadow-sm"
+                className="inline-block px-4 py-2 rounded-md bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:bg-navy dark:hover:bg-zinc-200 font-mono text-xs transition-colors shadow-sm"
               >
                 Open in Email Client →
               </a>

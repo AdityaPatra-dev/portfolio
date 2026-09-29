@@ -12,7 +12,7 @@ export const NoteDetailPage: React.FC = () => {
   }
 
   return (
-    <article className="space-y-8 max-w-2xl">
+    <article className="space-y-8">
       <div>
         <Link
           to="/notes"
@@ -22,21 +22,21 @@ export const NoteDetailPage: React.FC = () => {
           <span>Back to Notes</span>
         </Link>
 
-        <div className="border-b border-zinc-200 dark:border-zinc-800 pb-5 space-y-2">
+        <div className="border-b border-dashed border-zinc-200 dark:border-zinc-800 pb-5 space-y-2">
           <div className="text-xs font-mono text-zinc-500 dark:text-zinc-400">
             {note.category} · {note.date} · {note.readTime}
           </div>
-          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 leading-snug">
+          <h1 className="text-3xl sm:text-4xl font-serif tracking-tight text-zinc-900 dark:text-zinc-50 leading-snug">
             {note.title}
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed italic">
+          <p className="text-xs sm:text-sm font-mono text-zinc-600 dark:text-zinc-400 leading-relaxed italic">
             "{note.summary}"
           </p>
         </div>
       </div>
 
       {/* Takeaways */}
-      <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#18191e] p-5 rounded shadow-[0_1px_3px_rgba(0,0,0,0.02)] dark:shadow-none space-y-2 transition-colors">
+      <div className="border border-dashed border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-[#18191e]/50 p-5 rounded-lg space-y-2 transition-colors">
         <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-semibold">
           Key Takeaways
         </h2>
@@ -51,7 +51,7 @@ export const NoteDetailPage: React.FC = () => {
       </div>
 
       {/* Main Prose */}
-      <div className="space-y-4 text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed font-sans">
+      <div className="space-y-4 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed font-sans">
         {note.content.map((paragraph, idx) => (
           <p key={idx}>
             {paragraph}
@@ -60,8 +60,16 @@ export const NoteDetailPage: React.FC = () => {
       </div>
 
       {/* Tags */}
-      <div className="pt-6 border-t border-zinc-200 dark:border-zinc-800 text-xs font-mono text-zinc-500 dark:text-zinc-400">
-        Tags: {note.tags.join(', ')}
+      <div className="pt-6 border-t border-dashed border-zinc-200 dark:border-zinc-800 text-xs font-mono text-zinc-500 dark:text-zinc-400 flex flex-wrap gap-1.5">
+        <span className="self-center mr-1">Tags:</span>
+        {note.tags.map((tag, idx) => (
+          <span
+            key={idx}
+            className="px-2 py-0.5 rounded border border-dotted border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 text-[10px]"
+          >
+            {tag}
+          </span>
+        ))}
       </div>
 
       <div className="pt-4 flex items-center justify-between text-xs font-mono">
@@ -73,7 +81,7 @@ export const NoteDetailPage: React.FC = () => {
         </Link>
         <Link
           to="/projects"
-          className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+          className="text-zinc-600 dark:text-zinc-400 hover:text-navy dark:hover:text-white"
         >
           Related projects →
         </Link>
