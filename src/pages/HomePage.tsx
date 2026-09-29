@@ -6,6 +6,7 @@ import { projectsData } from '../data/projects';
 import { certificationsData, educationData } from '../data/experience';
 import { engineeringNotesData } from '../data/notes';
 import { BannerAnimation } from '../components/BannerAnimation';
+import { TypewriterText } from '../components/TypewriterText';
 import { ProjectCard } from '../components/ProjectCard';
 import { GithubHeatmap } from '../components/GithubHeatmap';
 import { LiveStatus } from '../components/LiveStatus';
@@ -65,9 +66,20 @@ export const HomePage: React.FC = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif tracking-tight text-zinc-900 dark:text-zinc-50 font-normal">
               {profileData.name}
             </h1>
-            <p className="text-xs sm:text-sm font-mono text-zinc-500 dark:text-zinc-400 mt-1">
-              B.Tech CSE Student @ KIIT · Cloud, DevOps & Machine Learning Systems
-            </p>
+            <div className="text-xs sm:text-sm font-mono text-zinc-500 dark:text-zinc-400 mt-1 flex flex-wrap items-center gap-1.5 min-h-[22px]">
+              <span>B.Tech CSE @ KIIT</span>
+              <span className="text-zinc-400 dark:text-zinc-600">·</span>
+              <TypewriterText
+                phrases={[
+                  'Cloud & Infrastructure',
+                  'DevOps & Kubernetes',
+                  'Machine Learning Systems',
+                  'Linux & Chaos Engineering',
+                  'RAG & LLM Workflows'
+                ]}
+                className="text-navy dark:text-blue-400 font-medium"
+              />
+            </div>
           </div>
 
           <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed max-w-2xl">

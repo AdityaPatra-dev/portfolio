@@ -3,13 +3,13 @@ import React, { useState, useMemo } from 'react';
 interface DayData {
   date: string;
   count: number;
-  level: number; // 0, 1, 2, 3, 4
+  level: number; // 0, 1, 2, 3
 }
 
 export const GithubHeatmap: React.FC = () => {
   const [hoveredDay, setHoveredDay] = useState<DayData | null>(null);
 
-  // Generate realistic commit history for 52 weeks (364 days)
+  // Generate realistic, clean commit history for 52 weeks (364 days)
   const { weeks, totalContributions } = useMemo(() => {
     const weeksList: DayData[][] = [];
     const today = new Date();
@@ -22,27 +22,24 @@ export const GithubHeatmap: React.FC = () => {
       d.setDate(today.getDate() - i);
       const dateStr = d.toISOString().split('T')[0];
 
-      // Pseudo-random but deterministic activity matching Aditya's projects
-      // Higher activity on certain days (projects: CloudArena, TAARAK SIH, CKA)
+      // Pseudo-random but deterministic activity matching realistic development
       const dayOfWeek = d.getDay(); // 0 = Sun, 6 = Sat
       const month = d.getMonth();
       const dayNum = d.getDate();
 
       // Seed calculation
-      const seed = (month * 31 + dayNum * 7 + dayOfWeek * 13) % 100;
+      const seed = (month * 37 + dayNum * 11 + dayOfWeek * 17) % 100;
       let count = 0;
       let level = 0;
 
-      if (seed > 88) {
-        count = 7 + (seed % 6);
-        level = 4;
-      } else if (seed > 65) {
-        count = 4 + (seed % 4);
+      // Sparse, realistic commit distribution (~20% active days, 1-3 commits)
+      if (seed >= 94) {
+        count = 3;
         level = 3;
-      } else if (seed > 40) {
-        count = 2 + (seed % 3);
+      } else if (seed >= 86) {
+        count = 2;
         level = 2;
-      } else if (seed > 22) {
+      } else if (seed >= 77) {
         count = 1;
         level = 1;
       } else {
@@ -69,15 +66,13 @@ export const GithubHeatmap: React.FC = () => {
   const getLevelColor = (level: number) => {
     switch (level) {
       case 1:
-        return 'bg-blue-100 dark:bg-blue-950/60 border border-blue-200/50 dark:border-blue-900/40';
+        return 'bg-blue-100 dark:bg-blue-950/70 border border-blue-200/50 dark:border-blue-900/40';
       case 2:
         return 'bg-blue-300 dark:bg-blue-800/80 border border-blue-400/50 dark:border-blue-700/50';
       case 3:
-        return 'bg-blue-500 dark:bg-blue-600 border border-blue-600 dark:border-blue-500';
-      case 4:
         return 'bg-navy dark:bg-blue-400 border border-navy-hover dark:border-blue-300';
       default:
-        return 'bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200/40 dark:border-zinc-800';
+        return 'bg-zinc-100/80 dark:bg-zinc-800/40 border border-zinc-200/30 dark:border-zinc-800/60';
     }
   };
 
@@ -156,7 +151,6 @@ export const GithubHeatmap: React.FC = () => {
             <span className={`w-2.5 h-2.5 rounded-[2px] ${getLevelColor(1)}`} />
             <span className={`w-2.5 h-2.5 rounded-[2px] ${getLevelColor(2)}`} />
             <span className={`w-2.5 h-2.5 rounded-[2px] ${getLevelColor(3)}`} />
-            <span className={`w-2.5 h-2.5 rounded-[2px] ${getLevelColor(4)}`} />
           </div>
           <span>More</span>
         </div>
