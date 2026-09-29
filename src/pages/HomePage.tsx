@@ -5,6 +5,7 @@ import { profileData } from '../data/profile';
 import { projectsData } from '../data/projects';
 import { certificationsData, educationData } from '../data/experience';
 import { engineeringNotesData } from '../data/notes';
+import { BannerAnimation } from '../components/BannerAnimation';
 import { ProjectCard } from '../components/ProjectCard';
 import { GithubHeatmap } from '../components/GithubHeatmap';
 import { LiveStatus } from '../components/LiveStatus';
@@ -19,15 +20,18 @@ export const HomePage: React.FC = () => {
     <div className="space-y-12">
       {/* Hero Section with Banner & Avatar */}
       <section className="space-y-4">
-        {/* Banner with subtle architectural schematic pattern */}
-        <div className="relative w-full h-36 sm:h-44 rounded-lg overflow-hidden border border-dashed border-zinc-200 dark:border-zinc-800 bg-gradient-to-tr from-zinc-900 via-slate-900 to-slate-800">
+        {/* Banner with continuous moving animation canvas */}
+        <div className="relative w-full h-40 sm:h-48 rounded-lg overflow-hidden border border-dashed border-zinc-200 dark:border-zinc-800 bg-gradient-to-tr from-[#090d16] via-[#0f172a] to-[#0d1527] shadow-inner">
           {/* Subtle grid pattern background */}
-          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#93c5fd_1px,transparent_1px)] [background-size:16px_16px]" />
+          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#93c5fd_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
           
-          {/* Subtle decorative code tag */}
-          <div className="absolute bottom-2.5 right-3 text-[10px] font-mono text-zinc-400 bg-black/50 backdrop-blur px-2.5 py-1 rounded border border-white/10 flex items-center gap-1.5">
+          {/* Continuous interactive moving animation canvas */}
+          <BannerAnimation />
+
+          {/* Subtle decorative telemetry tag */}
+          <div className="absolute bottom-2.5 right-3 text-[10px] font-mono text-zinc-300 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded border border-white/10 flex items-center gap-1.5 z-10 pointer-events-none">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>k3d · chaos · pytorch · drift</span>
+            <span>systems-mesh // active nodes</span>
           </div>
         </div>
 

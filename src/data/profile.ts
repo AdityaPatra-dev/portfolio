@@ -60,7 +60,7 @@ export const profileData: ProfileData = {
     building: [
       "CloudArena — incident response and automated remediation scenarios",
       "Local RAG and LLM knowledge retrieval pipelines",
-      "GFG KIIT Cloud & DevOps foundation probation project (Track declaration & container stack)"
+      "Cloud & DevOps foundation infrastructure project (7-stage container & AWS emulation track)"
     ]
   }
 };

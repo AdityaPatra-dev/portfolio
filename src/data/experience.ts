@@ -88,10 +88,10 @@ export const communitiesData: ExperienceCommunity[] = [
     ]
   },
   {
-    id: "sih-2025",
-    organization: "Smart India Hackathon (SIH 2025)",
+    id: "sih-2026",
+    organization: "Smart India Hackathon (SIH 2026)",
     role: "Core Application Developer (Internal Round)",
-    period: "2025",
+    period: "2026",
     description: "Engineered TAARAK, a resilient offline-first application created to maintain reliable operational records and turn-by-turn routing during network outages.",
     highlights: [
       "Independently wrote the Flutter frontend and Drift/SQLite offline-first persistence layer.",

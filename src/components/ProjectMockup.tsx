@@ -73,13 +73,13 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
           {/* Subtle dot grid */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
 
-          {/* Window Header */}
+          {/* Window Header - Updated to SIH 2026 */}
           <div className="flex items-center justify-between border-b border-slate-800/80 pb-2 z-10">
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
-              <span className="ml-2 text-slate-400 text-[10px]">taarak-core // SIH 2024</span>
+              <span className="ml-2 text-slate-400 text-[10px]">taarak-core // SIH 2026</span>
             </div>
             <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-blue-950/80 text-blue-400 border border-blue-800/50">
               OFFLINE-FIRST
@@ -123,6 +123,7 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
         </div>
       );
 
+    case 'llm-rag-system':
     case 'llm-rag-pipeline':
       return (
         <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-[#0d1117] text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
@@ -173,20 +174,20 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
         </div>
       );
 
-    case 'gfg-cloud-devops-foundation':
+    case 'cloud-devops-foundation':
     default:
       return (
         <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
           {/* Subtle grid pattern */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
 
-          {/* Window Header */}
+          {/* Window Header - Clean DevOps pipeline header without GFG */}
           <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
-              <span className="ml-2 text-zinc-400 text-[10px]">devops-pipeline // GFG Foundation</span>
+              <span className="ml-2 text-zinc-400 text-[10px]">devops-pipeline // Cloud & DevOps Foundation</span>
             </div>
             <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-800/50">
               PIPELINE PASSED
@@ -222,7 +223,7 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
 
           {/* Bottom tag */}
           <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
-            <span>KIIT DevOps Track</span>
+            <span>Infrastructure Track</span>
             <span className="text-zinc-400">Production Validated</span>
           </div>
         </div>

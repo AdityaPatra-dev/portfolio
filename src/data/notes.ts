@@ -29,7 +29,7 @@ export const engineeringNotesData: EngineeringNote[] = [
     date: "January 2026",
     category: "Architecture",
     readTime: "6 min read",
-    summary: "Engineering lessons from building TAARAK for SIH 2025: reactive local SQLite stores, conflict-free synchronization, and scaling an automated test suite to 440 passing tests.",
+    summary: "Engineering lessons from building TAARAK for SIH 2026: reactive local SQLite stores, conflict-free synchronization, and scaling an automated test suite to 440 passing tests.",
     content: [
       "In mobile applications meant for emergency or low-connectivity environments, assuming that a network connection is always available is a recipe for broken user experiences. When a user submits critical field data, the application must immediately commit the write locally without displaying a spinner.",
       "During the development of TAARAK, I selected Drift (formerly Moor), a reactive persistence library for Dart and SQLite. Drift generates type-safe Dart classes directly from SQL schema definitions or Dart DSLs, catching column mismatch bugs at compile-time rather than during runtime crashes.",

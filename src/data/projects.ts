@@ -226,14 +226,14 @@ export const projectsData: Project[] = [
     category: "cloud_devops",
     featured: true,
     status: "in_progress",
-    statusLabel: "Planned / In Progress (GFG Foundation Track)",
+    statusLabel: "In Progress · 7-Stage Track",
     period: "Active",
     githubUrl: "https://github.com/AdityaPatra-dev",
     technologies: ["Linux (Ubuntu)", "Systemd", "UFW Firewall", "Docker", "Docker Compose", "Nginx", "GitHub Actions", "Floci (Local AWS)", "AWS"],
-    summary: "A rigorous solo probation project for the GFG KIIT Cloud & DevOps Domain. The project follows a strict 7-stage engineering trajectory: creating and hardening a headless Ubuntu VM, configuring network security, authoring production-grade multi-stage Dockerfiles, building a multi-service Compose stack, emulating AWS resources locally using Floci, and deploying through an automated CI/CD pipeline.",
+    summary: "A rigorous solo infrastructure project following a strict 7-stage engineering trajectory: creating and hardening a headless Ubuntu VM, configuring network security, authoring production-grade multi-stage Dockerfiles, building a multi-service Compose stack, emulating AWS resources locally using Floci, and deploying through an automated CI/CD pipeline.",
     problem: "Most developers learn DevOps superficially through cloud console click-ops without understanding Linux system administration, networking fundamentals, firewalls, or container boundaries. This project is specifically structured to prove verifiable systems competence from the ground up.",
     solution: "Executing a disciplined 7-stage roadmap: (1) Headless Linux server setup & non-root SSH hardening; (2) Port, firewall, and DNS networking validation; (3) Clean multi-stage Docker containerization; (4) Multi-service Compose architecture with reverse proxy; (5) Local cloud testing using Floci (an AWS-compatible offline emulator) to prevent surprise cloud bills; (6) Automated CI/CD deployment pipeline on push; (7) Incident documentation of every breakage and root cause.",
-    myRole: "Domain member executing solo track — responsible for complete Linux configuration, Docker manifests, CI/CD pipeline, and technical break-fix logs.",
+    myRole: "Engineer executing solo track — responsible for complete Linux configuration, Docker manifests, CI/CD pipeline, and technical break-fix logs.",
     architectureFlow: [
       { title: "Stage 1-2: Hardened Linux VM", description: "Headless Ubuntu server, non-root user, SSH keys only, UFW firewall", badge: "Linux / UFW" },
       { title: "Stage 3: Multi-Stage Dockerfile", description: "Minimal, secure container image built without extraneous build tools", badge: "Docker" },
@@ -262,7 +262,7 @@ export const projectsData: Project[] = [
       "Understanding the exact gap between running containers on localhost vs running automated production deployments."
     ],
     verifiedFacts: [
-      "Assigned Foundation Project for GFG KIIT Cloud & DevOps Domain",
+      "Solo 7-stage infrastructure and containerization track",
       "Strict solo track following a 7-stage infrastructure roadmap",
       "Architecture incorporates Floci local AWS emulation per build brief"
     ]

@@ -52,10 +52,6 @@ export const ProjectsPage: React.FC = () => {
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
-
-      <div className="pt-6 border-t border-dashed border-zinc-200 dark:border-zinc-800 text-xs text-zinc-500 dark:text-zinc-400 font-mono leading-relaxed">
-        Note: Completed projects link to working code repositories and test logs. Active learning projects (such as the GFG Cloud Foundation track) are explicitly marked as in progress.
-      </div>
     </div>
   );
 };
