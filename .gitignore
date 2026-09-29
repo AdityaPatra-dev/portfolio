@@ -48,3 +48,10 @@ ui-debug.log
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Private documentation, build briefs, and probation documents
+AdityaPatra_Portfolio_Website_Build_Brief.md
+ChatGPT-Personal Website Guide-*.md
+GFG_KIIT_CloudDevOps_Probation_Project*.pdf
+*.pdf
+!public/*.pdf
