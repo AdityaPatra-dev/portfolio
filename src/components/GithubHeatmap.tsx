@@ -9,42 +9,60 @@ interface DayData {
 export const GithubHeatmap: React.FC = () => {
   const [hoveredDay, setHoveredDay] = useState<DayData | null>(null);
 
-  // Generate realistic, clean commit history for 52 weeks (364 days)
+  // Generate realistic clustered commit activity: sprint bursts and quiet valleys
   const { weeks, totalContributions } = useMemo(() => {
     const weeksList: DayData[][] = [];
     const today = new Date();
     let total = 0;
 
-    // Build day list starting from 364 days ago up to today
+    // Distinct engineering sprint periods (days from 0 to 363)
+    const sprints = [
+      { start: 35, end: 55, intensity: 0.72 },   // SIH 2026 sprint (TAARAK Flutter & SQLite)
+      { start: 108, end: 134, intensity: 0.74 }, // CloudArena k3d & Chaos Mesh
+      { start: 188, end: 210, intensity: 0.68 }, // LLM / RAG PyTorch experiments
+      { start: 246, end: 252, intensity: 0.80 }, // Hackathon weekend
+      { start: 285, end: 305, intensity: 0.65 }, // CKA labs & container security
+      { start: 334, end: 363, intensity: 0.75 }, // Recent sprint & portfolio infrastructure
+    ];
+
+    // Seeded pseudo-random number generator for deterministic stability
+    let seed = 428174;
+    const rand = () => {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    };
+
     const days: DayData[] = [];
-    for (let i = 363; i >= 0; i--) {
+    for (let i = 0; i < 364; i++) {
       const d = new Date();
-      d.setDate(today.getDate() - i);
+      d.setDate(today.getDate() - (363 - i));
       const dateStr = d.toISOString().split('T')[0];
 
-      // Pseudo-random but deterministic activity matching realistic development
-      const dayOfWeek = d.getDay(); // 0 = Sun, 6 = Sat
-      const month = d.getMonth();
-      const dayNum = d.getDate();
-
-      // Seed calculation
-      const seed = (month * 37 + dayNum * 11 + dayOfWeek * 17) % 100;
+      const sprint = sprints.find((sp) => i >= sp.start && i <= sp.end);
       let count = 0;
       let level = 0;
 
-      // Sparse, realistic commit distribution (~20% active days, 1-3 commits)
-      if (seed >= 94) {
-        count = 3;
-        level = 3;
-      } else if (seed >= 86) {
-        count = 2;
-        level = 2;
-      } else if (seed >= 77) {
-        count = 1;
-        level = 1;
+      if (sprint) {
+        // High density during project sprint periods (clusters near each other)
+        if (rand() < sprint.intensity) {
+          const r = rand();
+          if (r > 0.75) {
+            count = 3;
+            level = 3;
+          } else if (r > 0.35) {
+            count = 2;
+            level = 2;
+          } else {
+            count = 1;
+            level = 1;
+          }
+        }
       } else {
-        count = 0;
-        level = 0;
+        // Outside sprints: mostly empty, with very rare isolated commit (~2%)
+        if (rand() < 0.02) {
+          count = 1;
+          level = 1;
+        }
       }
 
       total += count;
@@ -55,7 +73,7 @@ export const GithubHeatmap: React.FC = () => {
       });
     }
 
-    // Chunk into 52 weeks of 7 days
+    // Chunk into 52 columns (weeks) of 7 rows (days)
     for (let i = 0; i < 52; i++) {
       weeksList.push(days.slice(i * 7, (i + 1) * 7));
     }
