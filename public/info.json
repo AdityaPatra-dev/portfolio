@@ -1,0 +1,37 @@
+{
+  "name": "Aditya Patra",
+  "status": "2nd Year, 3rd Semester B.Tech CSE Student",
+  "institution": "Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar",
+  "cgpa": "8.05 / 10.0",
+  "domains": [
+    "Cloud & DevOps Infrastructure",
+    "Machine Learning & AI",
+    "Systems & Software Engineering"
+  ],
+  "contacts": {
+    "email": "adityapatraraj@gmail.com",
+    "phone": "+91 9437234075",
+    "github": "https://github.com/AdityaPatra-dev",
+    "linkedin": "https://www.linkedin.com/in/aditya-patra-0a6530289/"
+  },
+  "certifications": [
+    {
+      "name": "Certified Kubernetes Administrator (CKA)",
+      "issuer": "KodeKloud",
+      "date": "Feb 2026",
+      "credential_id": "c082c8c6-664d-4da3-96ac-5606ed66c498"
+    },
+    {
+      "name": "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
+      "issuer": "Oracle",
+      "date": "Oct 2025"
+    }
+  ],
+  "featured_projects": [
+    "CloudArena (Local Kubernetes Incident Response Sandbox)",
+    "TAARAK (Offline-First SIH Mobile App with 440 Passing Tests)",
+    "LLM / RAG Knowledge System (Vector DB, LoRA/PEFT, Quantized Local Inference)",
+    "Text-to-Video Generator (Python AI Batch Pipeline)",
+    "Cloud & DevOps Foundation Project (In Progress 7-Stage Solo Track with Floci)"
+  ]
+}
