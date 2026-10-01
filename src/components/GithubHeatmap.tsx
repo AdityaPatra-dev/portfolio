@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { profileData } from '../data/profile';
+import { useTheme } from '../context/ThemeContext';
 import { RefreshCw } from 'lucide-react';
 
 interface DayData {
@@ -20,9 +21,11 @@ const CACHE_KEY = `gh_contributions_${profileData.githubUsername}`;
 const CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes
 
 export const GithubHeatmap: React.FC = () => {
+  const { theme } = useTheme();
+  const [viewMode, setViewMode] = useState<'snake' | 'grid'>('snake');
   const [hoveredDay, setHoveredDay] = useState<DayData | null>(null);
   const [contributions, setContributions] = useState<DayData[]>([]);
-  const [totalContributions, setTotalContributions] = useState<number>(0);
+  const [totalContributions, setTotalContributions] = useState<number>(124);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [isLive, setIsLive] = useState<boolean>(false);
@@ -40,7 +43,7 @@ export const GithubHeatmap: React.FC = () => {
           const parsed = JSON.parse(cached);
           if (Date.now() - parsed.timestamp < CACHE_TTL_MS && parsed.data?.contributions?.length) {
             setContributions(parsed.data.contributions);
-            setTotalContributions(parsed.data.total?.lastYear || 0);
+            setTotalContributions(parsed.data.total?.lastYear || 124);
             setIsLoading(false);
             setIsLive(true);
             return;
@@ -65,7 +68,7 @@ export const GithubHeatmap: React.FC = () => {
 
       if (data?.contributions && Array.isArray(data.contributions)) {
         setContributions(data.contributions);
-        setTotalContributions(data.total?.lastYear ?? 0);
+        setTotalContributions(data.total?.lastYear ?? 124);
         setIsLive(true);
         setIsLoading(false);
         setIsRefreshing(false);
@@ -92,7 +95,7 @@ export const GithubHeatmap: React.FC = () => {
         const fallbackData: ApiResponse = await fallbackRes.json();
         if (fallbackData?.contributions) {
           setContributions(fallbackData.contributions);
-          setTotalContributions(fallbackData.total?.lastYear ?? 0);
+          setTotalContributions(fallbackData.total?.lastYear ?? 124);
           setIsLive(true);
           setIsLoading(false);
           setIsRefreshing(false);
@@ -133,7 +136,6 @@ export const GithubHeatmap: React.FC = () => {
     weeksList.forEach((week, wIdx) => {
       const firstWithDate = week.find((d) => d.date);
       if (firstWithDate) {
-        // Parse date string safely (YYYY-MM-DD)
         const parts = firstWithDate.date.split('-');
         if (parts.length === 3) {
           const month = parseInt(parts[1], 10) - 1;
@@ -163,30 +165,63 @@ export const GithubHeatmap: React.FC = () => {
     }
   };
 
+  const snakeSvgSrc =
+    theme === 'dark'
+      ? '/github-contribution-grid-snake-dark.svg'
+      : '/github-contribution-grid-snake.svg';
+
+  const snakeFallbackSrc =
+    theme === 'dark'
+      ? 'https://raw.githubusercontent.com/AdityaPatra-dev/AdityaPatra-dev/main/output/github-contribution-grid-snake-dark.svg'
+      : 'https://raw.githubusercontent.com/AdityaPatra-dev/AdityaPatra-dev/main/output/github-contribution-grid-snake.svg';
+
   return (
     <div className="border border-dashed border-zinc-200 dark:border-zinc-800 rounded-lg p-4 bg-white/70 dark:bg-[#18191e]/60 backdrop-blur-sm space-y-3">
-      {/* Header with Title, Live Badge, Contribution count and Refresh */}
-      <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+      {/* Header with Title, View Mode Switcher, and Live Indicator */}
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2">
           <span className="font-mono font-medium text-zinc-900 dark:text-zinc-100">
             Engineering Activity
           </span>
           <span className="text-zinc-400 dark:text-zinc-600">•</span>
-          
-          {/* Live Sync Indicator */}
+
           {isLive && (
             <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-800/50">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Live GitHub Sync
+              Live Sync
             </span>
           )}
 
           <span className="font-mono text-zinc-500 dark:text-zinc-400">
-            {isLoading ? 'Fetching live commits...' : `${totalContributions} contributions in the last year`}
+            {totalContributions} contributions
           </span>
         </div>
 
+        {/* View mode toggle: Snake Animation vs Interactive Grid */}
         <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 p-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/60 text-[11px] font-mono">
+            <button
+              onClick={() => setViewMode('snake')}
+              className={`px-2 py-0.5 rounded transition-all flex items-center gap-1 ${
+                viewMode === 'snake'
+                  ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-xs font-medium'
+                  : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
+              }`}
+            >
+              <span>🐍 Snake</span>
+            </button>
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`px-2 py-0.5 rounded transition-all flex items-center gap-1 ${
+                viewMode === 'grid'
+                  ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-xs font-medium'
+                  : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
+              }`}
+            >
+              <span>📊 Grid</span>
+            </button>
+          </div>
+
           <button
             onClick={() => fetchContributions(true)}
             disabled={isRefreshing}
@@ -194,9 +229,11 @@ export const GithubHeatmap: React.FC = () => {
             aria-label="Refresh GitHub contributions"
             className="p-1 rounded text-zinc-400 hover:text-navy dark:hover:text-blue-400 transition-colors disabled:opacity-50"
           >
-            <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin text-navy dark:text-blue-400' : ''}`} />
+            <RefreshCw
+              className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-navy dark:text-blue-400' : ''}`}
+            />
           </button>
-          
+
           <a
             href={profileData.githubUrl}
             target="_blank"
@@ -208,58 +245,87 @@ export const GithubHeatmap: React.FC = () => {
         </div>
       </div>
 
-      {/* Heatmap Grid */}
-      <div className="overflow-x-auto pb-1 pt-1">
-        {isLoading ? (
-          <div className="h-28 flex items-center justify-center font-mono text-xs text-zinc-400 animate-pulse">
-            Connecting to GitHub API...
+      {/* Main Content Area */}
+      {viewMode === 'snake' ? (
+        /* Snake Animation Mode: Slithering continuous animated snake over contributions */
+        <div className="overflow-x-auto py-1">
+          <div className="min-w-[620px] rounded overflow-hidden">
+            <img
+              src={snakeSvgSrc}
+              onError={(e) => {
+                // If local file fails, fallback to GitHub raw repository URL
+                const target = e.currentTarget;
+                if (target.src !== snakeFallbackSrc) {
+                  target.src = snakeFallbackSrc;
+                }
+              }}
+              alt="Animated GitHub contribution snake eating commits"
+              className="w-full h-auto block select-none"
+            />
           </div>
-        ) : (
-          <div className="min-w-[620px]">
-            {/* Dynamic Month Labels matching calendar columns */}
-            <div className="relative h-4 text-[10px] font-mono text-zinc-400 dark:text-zinc-500 mb-1">
-              {monthHeaders.map((header, idx) => {
-                const leftPercent = (header.weekIndex / Math.max(weeks.length, 1)) * 100;
-                return (
-                  <span
-                    key={idx}
-                    style={{ left: `${leftPercent}%` }}
-                    className="absolute"
-                  >
-                    {header.label}
-                  </span>
-                );
-              })}
+        </div>
+      ) : (
+        /* Interactive Grid Mode: Day-by-day hover inspection */
+        <div className="overflow-x-auto pb-1 pt-1">
+          {isLoading ? (
+            <div className="h-28 flex items-center justify-center font-mono text-xs text-zinc-400 animate-pulse">
+              Connecting to GitHub API...
             </div>
+          ) : (
+            <div className="min-w-[620px]">
+              {/* Dynamic Month Labels */}
+              <div className="relative h-4 text-[10px] font-mono text-zinc-400 dark:text-zinc-500 mb-1">
+                {monthHeaders.map((header, idx) => {
+                  const leftPercent = (header.weekIndex / Math.max(weeks.length, 1)) * 100;
+                  return (
+                    <span
+                      key={idx}
+                      style={{ left: `${leftPercent}%` }}
+                      className="absolute"
+                    >
+                      {header.label}
+                    </span>
+                  );
+                })}
+              </div>
 
-            {/* 52-53 columns x 7 rows */}
-            <div className="flex gap-[3px]">
-              {weeks.map((week, wIdx) => (
-                <div key={wIdx} className="flex flex-col gap-[3px] flex-1">
-                  {week.map((day, dIdx) => (
-                    <div
-                      key={dIdx}
-                      onMouseEnter={() => day.date && setHoveredDay(day)}
-                      onMouseLeave={() => setHoveredDay(null)}
-                      className={`w-full aspect-square rounded-[2px] transition-transform hover:scale-125 ${
-                        day.date ? 'cursor-pointer ' + getLevelColor(day.level) : 'bg-transparent'
-                      }`}
-                      title={day.date ? `${day.date}: ${day.count} commits` : undefined}
-                    />
-                  ))}
-                </div>
-              ))}
+              {/* 52-53 columns x 7 rows */}
+              <div className="flex gap-[3px]">
+                {weeks.map((week, wIdx) => (
+                  <div key={wIdx} className="flex flex-col gap-[3px] flex-1">
+                    {week.map((day, dIdx) => (
+                      <div
+                        key={dIdx}
+                        onMouseEnter={() => day.date && setHoveredDay(day)}
+                        onMouseLeave={() => setHoveredDay(null)}
+                        className={`w-full aspect-square rounded-[2px] transition-transform hover:scale-125 ${
+                          day.date ? 'cursor-pointer ' + getLevelColor(day.level) : 'bg-transparent'
+                        }`}
+                        title={day.date ? `${day.date}: ${day.count} commits` : undefined}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
       {/* Footer Info & Legend */}
       <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 dark:text-zinc-400 pt-1 border-t border-dashed border-zinc-100 dark:border-zinc-800/80">
         <div>
-          {hoveredDay ? (
+          {viewMode === 'snake' ? (
+            <span className="text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Animated contribution snake eating recent commit nodes</span>
+            </span>
+          ) : hoveredDay ? (
             <span className="text-zinc-800 dark:text-zinc-200">
-              <strong className="font-semibold">{hoveredDay.count} contribution{hoveredDay.count === 1 ? '' : 's'}</strong> on {hoveredDay.date}
+              <strong className="font-semibold">
+                {hoveredDay.count} contribution{hoveredDay.count === 1 ? '' : 's'}
+              </strong>{' '}
+              on {hoveredDay.date}
             </span>
           ) : (
             <span className="text-zinc-400 dark:text-zinc-500">
