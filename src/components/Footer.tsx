@@ -21,6 +21,22 @@ export const Footer: React.FC = () => {
             GitHub
           </a>
           <a
+            href={profileData.dockerHubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-navy dark:hover:text-blue-400 transition-colors"
+          >
+            Docker Hub
+          </a>
+          <a
+            href={profileData.huggingFaceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-navy dark:hover:text-blue-400 transition-colors"
+          >
+            Hugging Face
+          </a>
+          <a
             href={profileData.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"

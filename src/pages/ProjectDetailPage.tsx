@@ -6,7 +6,7 @@ import { ProjectMockup } from '../components/ProjectMockup';
 
 export const ProjectDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const project = projectsData.find((p) => p.id === id);
+  const project = projectsData.find((p) => p.id === id || (id === 'llm-rag-system' && p.id === 'mastering-llms'));
 
   if (!project) {
     return <Navigate to="/projects" replace />;

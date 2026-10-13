@@ -11,7 +11,7 @@ import { ProjectCard } from '../components/ProjectCard';
 import { GithubHeatmap } from '../components/GithubHeatmap';
 import { LiveStatus } from '../components/LiveStatus';
 import { ContactTile } from '../components/ContactTile';
-import { GithubIcon, LinkedinIcon } from '../components/icons';
+import { GithubIcon, LinkedinIcon, DockerIcon, HuggingFaceIcon } from '../components/icons';
 
 export const HomePage: React.FC = () => {
   const featuredProjects = projectsData.filter((p) => p.featured).slice(0, 4);
@@ -85,6 +85,14 @@ export const HomePage: React.FC = () => {
           <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed max-w-2xl">
             {profileData.shortBio}
           </p>
+
+          {/* Engineering Mantra Badge */}
+          <div className="pt-1">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-zinc-100/80 dark:bg-zinc-850/80 border border-dashed border-zinc-200 dark:border-zinc-800 text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
+              <span className="text-navy dark:text-blue-400 font-medium">Mantra:</span>
+              <span>{profileData.mantra}</span>
+            </div>
+          </div>
         </div>
 
         {/* Real-time Status & Clock */}
@@ -92,13 +100,25 @@ export const HomePage: React.FC = () => {
           <LiveStatus />
         </div>
 
-        {/* Social / Contact Grid (Dashed micro-interaction tiles like Samworks) */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+        {/* Social / Developer Hubs Grid (6 Tiles) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 pt-2">
           <ContactTile
             label="GitHub"
             sublabel={`@${profileData.githubUsername}`}
             href={profileData.githubUrl}
             icon={<GithubIcon className="w-4 h-4" />}
+          />
+          <ContactTile
+            label="Docker Hub"
+            sublabel="adityapatra"
+            href={profileData.dockerHubUrl}
+            icon={<DockerIcon className="w-4 h-4" />}
+          />
+          <ContactTile
+            label="Hugging Face"
+            sublabel="Aditya9438"
+            href={profileData.huggingFaceUrl}
+            icon={<HuggingFaceIcon className="w-4 h-4" />}
           />
           <ContactTile
             label="LinkedIn"

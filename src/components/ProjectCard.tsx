@@ -73,17 +73,30 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               Architecture & Details →
             </Link>
 
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-zinc-500 dark:text-zinc-400 hover:text-navy dark:hover:text-blue-400 transition-colors font-mono text-[11px]"
-              >
-                <GithubIcon className="w-3.5 h-3.5" />
-                <span>Source</span>
-              </a>
-            )}
+            <div className="flex items-center gap-3">
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-0.5 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors font-mono text-[11px]"
+                >
+                  <span>Live</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-zinc-500 dark:text-zinc-400 hover:text-navy dark:hover:text-blue-400 transition-colors font-mono text-[11px]"
+                >
+                  <GithubIcon className="w-3.5 h-3.5" />
+                  <span>Source</span>
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>

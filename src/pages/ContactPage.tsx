@@ -3,7 +3,7 @@ import { Mail, FileText, ArrowUpRight } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { profileData } from '../data/profile';
 import { ContactTile } from '../components/ContactTile';
-import { GithubIcon, LinkedinIcon } from '../components/icons';
+import { GithubIcon, LinkedinIcon, DockerIcon, HuggingFaceIcon } from '../components/icons';
 
 export const ContactPage: React.FC = () => {
   const [copied, setCopied] = useState<string | null>(null);
@@ -33,13 +33,25 @@ export const ContactPage: React.FC = () => {
         description="Feel free to reach out regarding technical internships, collaborative projects, or discussions around Cloud/DevOps and ML."
       />
 
-      {/* Social / Contact Grid (Dashed micro-interaction tiles) */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      {/* Social / Developer Hubs Grid (6 Tiles) */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
         <ContactTile
           label="GitHub"
           sublabel={`@${profileData.githubUsername}`}
           href={profileData.githubUrl}
           icon={<GithubIcon className="w-4 h-4" />}
+        />
+        <ContactTile
+          label="Docker Hub"
+          sublabel="adityapatra"
+          href={profileData.dockerHubUrl}
+          icon={<DockerIcon className="w-4 h-4" />}
+        />
+        <ContactTile
+          label="Hugging Face"
+          sublabel="Aditya9438"
+          href={profileData.huggingFaceUrl}
+          icon={<HuggingFaceIcon className="w-4 h-4" />}
         />
         <ContactTile
           label="LinkedIn"
@@ -65,7 +77,7 @@ export const ContactPage: React.FC = () => {
         {/* Direct Channels */}
         <div className="space-y-3">
           <h2 className="text-xl sm:text-2xl font-serif italic text-zinc-900 dark:text-zinc-100 border-b border-dashed border-zinc-200 dark:border-zinc-800 pb-2">
-            Direct Channels
+            Direct Channels & Developer Hubs
           </h2>
 
           <div className="border border-dashed border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-[#18191e]/50 p-5 rounded-lg space-y-2 text-xs font-mono transition-colors">
@@ -108,12 +120,38 @@ export const ContactPage: React.FC = () => {
                 rel="noopener noreferrer"
                 className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
               >
-                <span>{profileData.githubUsername}</span>
+                <span>github.com/{profileData.githubUsername}</span>
                 <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
               </a>
             </div>
 
-            <div className="flex items-baseline justify-between py-1">
+            <div className="flex items-baseline justify-between py-1 border-b border-dashed border-zinc-100 dark:border-zinc-800/80 pb-2">
+              <span className="text-zinc-500 dark:text-zinc-400">Docker Hub:</span>
+              <a
+                href={profileData.dockerHubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
+              >
+                <span>hub.docker.com/u/adityapatra</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
+              </a>
+            </div>
+
+            <div className="flex items-baseline justify-between py-1 border-b border-dashed border-zinc-100 dark:border-zinc-800/80 pb-2">
+              <span className="text-zinc-500 dark:text-zinc-400">Hugging Face:</span>
+              <a
+                href={profileData.huggingFaceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
+              >
+                <span>huggingface.co/Aditya9438</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
+              </a>
+            </div>
+
+            <div className="flex items-baseline justify-between py-1 border-b border-dashed border-zinc-100 dark:border-zinc-800/80 pb-2">
               <span className="text-zinc-500 dark:text-zinc-400">LinkedIn:</span>
               <a
                 href={profileData.linkedinUrl}
@@ -121,7 +159,33 @@ export const ContactPage: React.FC = () => {
                 rel="noopener noreferrer"
                 className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
               >
-                <span>Aditya Patra</span>
+                <span>linkedin.com/in/aditya-patra-0a6530289</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
+              </a>
+            </div>
+
+            <div className="flex items-baseline justify-between py-1 border-b border-dashed border-zinc-100 dark:border-zinc-800/80 pb-2">
+              <span className="text-zinc-500 dark:text-zinc-400">X (Twitter):</span>
+              <a
+                href={profileData.twitterUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
+              >
+                <span>x.com/Aditya_patra943</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
+              </a>
+            </div>
+
+            <div className="flex items-baseline justify-between py-1">
+              <span className="text-zinc-500 dark:text-zinc-400">YouTube:</span>
+              <a
+                href={profileData.youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
+              >
+                <span>youtube.com/@Aditya_Learns_tech</span>
                 <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
               </a>
             </div>
