@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { profileData } from '../data/profile';
 import { useTheme } from '../context/ThemeContext';
 import { RefreshCw } from 'lucide-react';
+import { LiveSnakeHeatmap } from './LiveSnakeHeatmap';
 
 interface DayData {
   date: string;
@@ -165,16 +166,6 @@ export const GithubHeatmap: React.FC = () => {
     }
   };
 
-  const snakeSvgSrc =
-    theme === 'dark'
-      ? '/github-contribution-grid-snake-dark.svg'
-      : '/github-contribution-grid-snake.svg';
-
-  const snakeFallbackSrc =
-    theme === 'dark'
-      ? 'https://raw.githubusercontent.com/AdityaPatra-dev/AdityaPatra-dev/main/output/github-contribution-grid-snake-dark.svg'
-      : 'https://raw.githubusercontent.com/AdityaPatra-dev/AdityaPatra-dev/main/output/github-contribution-grid-snake.svg';
-
   return (
     <div className="border border-dashed border-zinc-200 dark:border-zinc-800 rounded-lg p-4 bg-white/70 dark:bg-[#18191e]/60 backdrop-blur-sm space-y-3">
       {/* Header with Title, View Mode Switcher, and Live Indicator */}
@@ -247,23 +238,14 @@ export const GithubHeatmap: React.FC = () => {
 
       {/* Main Content Area */}
       {viewMode === 'snake' ? (
-        /* Snake Animation Mode: Slithering continuous animated snake over contributions */
-        <div className="overflow-x-auto py-1">
-          <div className="min-w-[620px] rounded overflow-hidden">
-            <img
-              src={snakeSvgSrc}
-              onError={(e) => {
-                // If local file fails, fallback to GitHub raw repository URL
-                const target = e.currentTarget;
-                if (target.src !== snakeFallbackSrc) {
-                  target.src = snakeFallbackSrc;
-                }
-              }}
-              alt="Animated GitHub contribution snake eating commits"
-              className="w-full h-auto block select-none"
-            />
-          </div>
-        </div>
+        /* Snake Animation Mode: Slithering continuous animated snake over live contributions */
+        <LiveSnakeHeatmap
+          weeks={weeks}
+          monthHeaders={monthHeaders}
+          theme={theme}
+          onHoverDay={setHoveredDay}
+          isLoading={isLoading}
+        />
       ) : (
         /* Interactive Grid Mode: Day-by-day hover inspection */
         <div className="overflow-x-auto pb-1 pt-1">
@@ -315,17 +297,17 @@ export const GithubHeatmap: React.FC = () => {
       {/* Footer Info & Legend */}
       <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 dark:text-zinc-400 pt-1 border-t border-dashed border-zinc-100 dark:border-zinc-800/80">
         <div>
-          {viewMode === 'snake' ? (
-            <span className="text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Animated contribution snake eating recent commit nodes</span>
-            </span>
-          ) : hoveredDay ? (
+          {hoveredDay ? (
             <span className="text-zinc-800 dark:text-zinc-200">
               <strong className="font-semibold">
                 {hoveredDay.count} contribution{hoveredDay.count === 1 ? '' : 's'}
               </strong>{' '}
               on {hoveredDay.date}
+            </span>
+          ) : viewMode === 'snake' ? (
+            <span className="text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Live autonomous snake eating recent commit nodes</span>
             </span>
           ) : (
             <span className="text-zinc-400 dark:text-zinc-500">
