@@ -306,6 +306,310 @@ export const projectsData: Project[] = [
     ]
   },
   {
+    id: "novels-world",
+    title: "Novels-World",
+    tagline: "Modern, high-performance offline web novel reader & aggregator with 31+ multi-template sources, Cloudflare bypass, and multi-engine TTS.",
+    category: "software",
+    featured: false,
+    status: "completed",
+    statusLabel: "Active ⚡",
+    period: "2025 – 2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/Novels-World",
+    technologies: ["Dart", "Flutter", "Offline Storage", "TTS (Kokoro/Piper/Sherpa)", "Cloudflare Bypass", "REST"],
+    summary: "A modern, high-performance offline web novel reader and aggregator built in Dart/Flutter, supporting 31+ multi-template content sources, automated chapter caching, Cloudflare challenge bypass, and local neural text-to-speech.",
+    problem: "Reading web literature across different fragmented platforms typically involves intrusive advertisements, loss of access during offline commutes, and poor accessibility.",
+    solution: "Engineered an aggregator client in Dart that scrapes and caches chapters locally into offline storage, integrates multi-engine TTS (Kokoro/Piper/Sherpa) for audio narration, and provides a distraction-free reader interface.",
+    myRole: "Implemented source extraction scrapers, offline storage caching, Cloudflare bypass mechanisms, and TTS player integration.",
+    engineeringDecisions: [
+      {
+        title: "Multi-engine local neural TTS",
+        description: "Supported offline neural voice models (Kokoro, Piper, Sherpa) to allow offline audiobook-style reading without network latency or cloud TTS billing."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Maintaining reliability across 31+ dynamic web novel website structures.",
+        resolution: "Designed a pluggable parser architecture with template inheritance (Madara, LightNovelWP, NovelFull) to minimize source maintenance overhead."
+      }
+    ],
+    whatILearned: [
+      "Cross-platform Flutter performance tuning for heavy text and audio workloads.",
+      "Resilient scraping and network challenge mitigation in mobile runtimes."
+    ],
+    verifiedFacts: [
+      "31+ multi-template source support",
+      "Multi-engine offline TTS integration",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
+    id: "dsa-vault",
+    title: "DSA & Competitive Programming Vault",
+    tagline: "Automated DSA & Competitive Programming vault in C++ & C — Live tracking across LeetCode, Codeforces, CodeChef, HackerRank & HackerEarth with real-time dynamic heatmaps.",
+    category: "software",
+    featured: false,
+    status: "completed",
+    statusLabel: "Active ⚡",
+    period: "2024 – 2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/DSA",
+    technologies: ["C++", "C", "Python", "Data Structures", "Algorithms", "GitHub Actions Automation", "Markdown"],
+    summary: "An automated data structures, algorithms, and competitive programming repository in C++ and C. Integrates GitHub Actions pipelines to dynamically track and render live coding activity across LeetCode, Codeforces, CodeChef, and HackerRank with real-time heatmaps.",
+    problem: "Tracking algorithmic progress across multiple competitive programming platforms often results in scattered solutions and inconsistent documentation of problem patterns.",
+    solution: "Created a centralized vault organized by algorithmic paradigms (DP, Graphs, Trees, Two Pointers) paired with a Python telemetry script running in GitHub Actions that aggregates solved problem counts and updates repository documentation automatically.",
+    myRole: "Implemented algorithmic solutions in C++ and C, designed the problem classification taxonomy, and authored the telemetry automation scripts.",
+    engineeringDecisions: [
+      {
+        title: "Automated telemetry sync via GitHub Actions",
+        description: "Scheduled daily CI jobs that fetch problem statistics from competitive programming profile APIs and dynamically regenerate badges and progress heatmaps in the README."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Handling diverse and sometimes rate-limited platform APIs.",
+        resolution: "Implemented caching and retry mechanisms with backoff in the Python synchronization script."
+      }
+    ],
+    whatILearned: [
+      "Deepened mastery of core data structures, graph traversals, and dynamic programming.",
+      "Designing automated self-updating repository telemetry with GitHub Actions."
+    ],
+    verifiedFacts: [
+      "Solutions authored in C++ and C",
+      "Automated CI/CD telemetry tracking across 5 competitive platforms",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
+    id: "manhua-extractor",
+    title: "Manhua-extractor",
+    tagline: "Universal Manga/Manhua downloader, offline WebP CBZ/PDF compiler & standalone Android app with OPDS, E-Ink slicer, and Mihon/Tachiyomi support.",
+    category: "software",
+    featured: false,
+    status: "completed",
+    statusLabel: "Active ⚡",
+    period: "2025 – 2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/Manhua-extractor",
+    technologies: ["Python", "Android", "Chaquopy", "WebP", "CBZ / PDF", "OPDS Server", "Concurrency"],
+    summary: "A universal manga and manhua downloader and compiler featuring lossless WebP optimization, automatic chapter packaging into CBZ and PDF formats, an embedded OPDS library server, and integration for Mihon/Tachiyomi and Android.",
+    problem: "Preserving and reading web comics offline typically involves low-quality re-encodings, massive file sizes, and lack of standardized metadata for e-readers and mobile devices.",
+    solution: "Engineered a multithreaded extraction pipeline that fetches high-resolution comic panels, performs concurrent WebP compression to minimize storage foot-print, compiles clean CBZ/PDF archives, and serves them via an embedded OPDS server.",
+    myRole: "Engineered scraping and image decompression pipelines, WebP batch encoder, CBZ/PDF archive compiler, and OPDS server.",
+    engineeringDecisions: [
+      {
+        title: "Asynchronous parallel chunk downloads",
+        description: "Employed connection pooling and parallel panel fetching to maximize download throughput while respecting source rate limits."
+      },
+      {
+        title: "Lossless WebP image packaging",
+        description: "Compressed raw image frames to WebP before compiling into CBZ archives, cutting file sizes by 40-60% without visual degradation."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Handling long vertical-scroll webtoon strips on fixed-ratio E-Ink screens.",
+        resolution: "Implemented an automated smart slicer that splits tall continuous panels at whitespace boundaries."
+      }
+    ],
+    whatILearned: [
+      "High-throughput batch image optimization and archive format specifications (CBZ/PDF).",
+      "Embedded OPDS catalog server standards for cross-device synchronization."
+    ],
+    verifiedFacts: [
+      "Built with Python and Chaquopy for Android",
+      "Supports WebP CBZ/PDF compilation and OPDS serving",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
+    id: "gemeni-smart-note",
+    title: "Gemini Smart Note",
+    tagline: "AI-powered smart note and study assistant powered by Google Gemini for real-time document analysis and conceptual synthesis.",
+    category: "ml_ai",
+    featured: false,
+    status: "completed",
+    statusLabel: "Active ⚡",
+    period: "2025 – 2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/gemeni-smart-note",
+    technologies: ["JavaScript", "HTML5", "Google Gemini API", "CSS3", "Markdown", "Prompt Engineering"],
+    summary: "An interactive, AI-assisted study assistant and smart note taking application powered by Google Gemini, designed to summarize technical lectures, extract key concepts, and provide contextual Q&A directly alongside notes.",
+    problem: "Synthesizing extensive academic lecture notes and technical specifications requires manual outlining and repetitive concept verification.",
+    solution: "Built a responsive web workspace integrating Gemini AI models to generate structured study flashcards, identify prerequisite concepts, and explain technical terminology with grounding.",
+    myRole: "Designed the client UI, integrated Google Gemini REST endpoints, and engineered prompts for technical comprehension and summarizing.",
+    engineeringDecisions: [
+      {
+        title: "Contextual prompt chaining",
+        description: "Structured multi-turn prompts to retain active note context without exceeding token window quotas."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Rendering complex mathematical formulas and code blocks in real-time streaming output.",
+        resolution: "Integrated markdown parsers and LaTeX math renderers to display technical syntax accurately."
+      }
+    ],
+    whatILearned: [
+      "Direct integration and prompt engineering with Google Gemini APIs.",
+      "Building responsive single-page study tooling with local storage persistence."
+    ],
+    verifiedFacts: [
+      "Integrated with Google Gemini AI",
+      "Interactive note taking and concept synthesis",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
+    id: "devpulse",
+    title: "DevPulse",
+    tagline: "Cloud Incident & Service Status Tracker monitoring multi-cloud infrastructure and outage telemetry.",
+    category: "cloud_devops",
+    featured: false,
+    status: "completed",
+    statusLabel: "Active ⚡",
+    period: "2025 – 2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/DevPulse",
+    technologies: ["Python", "FastAPI", "Cloud Telemetry", "Status Monitoring", "Docker", "REST API"],
+    summary: "A cloud incident and service status tracker designed to aggregate, observe, and alert on infrastructure outages and operational incidents across major cloud providers.",
+    problem: "Detecting multi-cloud service disruptions often requires checking disparate vendor status dashboards independently, delaying incident response.",
+    solution: "Constructed an automated aggregator in Python that queries cloud provider status feeds, normalizes incident schemas, and surfaces real-time service health via API and dashboard.",
+    myRole: "Engineered status polling engine, schema normalizer, and containerized backend.",
+    engineeringDecisions: [
+      {
+        title: "Normalized incident schema",
+        description: "Standardized heterogeneous incident formats from AWS, GCP, and Azure into a consistent operational status model."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Polling status feeds without triggering vendor rate limits.",
+        resolution: "Employed adaptive polling intervals based on active incident states."
+      }
+    ],
+    whatILearned: [
+      "Cloud status feed protocols and operational incident management patterns.",
+      "Containerized microservice monitoring architectures."
+    ],
+    verifiedFacts: [
+      "Cloud incident tracker built in Python",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
+    id: "portfolio-site",
+    title: "Developer Portfolio Website",
+    tagline: "Modern, responsive developer portfolio web application built with React, TypeScript, and Tailwind CSS, deployed on Firebase Hosting.",
+    category: "software",
+    featured: false,
+    status: "completed",
+    statusLabel: "Live App",
+    period: "2025 – 2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/portfolio",
+    liveUrl: "https://adityapatradev.web.app",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "Firebase Hosting", "Canvas API", "GitHub API"],
+    summary: "A fast, minimalist portfolio website crafted with architectural restraint, Instrument Serif typography, cream/charcoal/navy color palette, dynamic GitHub contribution sync, animated snake canvas, and automated daily telemetry pipelines.",
+    problem: "Generic cookie-cutter templates often feel impersonal and fail to showcase verifiable systems competence, real terminal aesthetics, and authentic engineering work.",
+    solution: "Architected a custom React + TypeScript application with client-side routing, canvas mesh background animation, dynamic GitHub GraphQL/API sync with local storage caching, dark mode toggle, and Firebase deployment.",
+    myRole: "Designed the UI/UX architecture, authored all frontend components, wrote the canvas animation engine, and configured automated CI/CD deployment pipelines.",
+    engineeringDecisions: [
+      {
+        title: "Custom Canvas 60fps Mesh Animation",
+        description: "Implemented an event-driven HTML5 canvas mesh with ResizeObserver and tab-visibility auto-pause to eliminate unnecessary GPU/CPU cycles when backgrounded."
+      },
+      {
+        title: "Dynamic GitHub Contribution Cache",
+        description: "Constructed a 2-tier contribution data fetcher: queries live API with 4-hour local caching and graceful fallback to bundled JSON."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Rendering crisp Retina graphics and responsive SVG heatmaps across mobile and desktop screens.",
+        resolution: "Scaled canvas backing store by window.devicePixelRatio and calibrated cell dimensions dynamically."
+      }
+    ],
+    whatILearned: [
+      "High-performance Canvas API math, trigonometric wave functions, and requestAnimationFrame scheduling.",
+      "Automated Git history auditing and secret protection workflows."
+    ],
+    verifiedFacts: [
+      "Built with React, TypeScript, Tailwind CSS, and Vite",
+      "Deployed on Firebase Hosting at adityapatradev.web.app",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
+    id: "adityapatra-dev-engine",
+    title: "AdityaPatra-dev Profile Engine",
+    tagline: "Personal GitHub profile configuration, automated multi-cloud telemetry engine, and CI/CD pipelines showcasing cloud & DevOps engineering.",
+    category: "cloud_devops",
+    featured: false,
+    status: "completed",
+    statusLabel: "Active ⚡",
+    period: "2025 – 2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/AdityaPatra-dev",
+    technologies: ["Python", "GitHub Actions", "CI/CD", "SVG Generation", "Multi-Cloud Telemetry", "Mermaid"],
+    summary: "The automated self-updating CI/CD telemetry engine that powers Aditya Patra's personal GitHub profile, generating dynamic 3D contribution matrix calendars, animated snake graphs, and multi-cloud status telemetries on schedule.",
+    problem: "Maintaining an active developer profile usually requires manual updates that quickly become stale as new repositories, contributions, and certifications are added.",
+    solution: "Engineered automated GitHub Actions workflows that run cron jobs to fetch live commit telemetry, compile 3D contribution matrices, render animated SVG dashboards, and commit updates automatically.",
+    myRole: "Designed profile CI/CD workflows, SVG dashboard templates, and automated telemetry collectors.",
+    engineeringDecisions: [
+      {
+        title: "Automated profile telemetry via cron workflows",
+        description: "Scheduled scheduled actions that aggregate activity metrics, generate SVG assets, and commit them cleanly back to the repository."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Preventing infinite CI loop triggers when automated bots commit generated SVG assets.",
+        resolution: "Added '[skip ci]' tags to automated bot commit headers."
+      }
+    ],
+    whatILearned: [
+      "Deep understanding of advanced GitHub Actions workflow scheduling, permissions, and bot token management.",
+      "Programmatic SVG generation and dynamic telemetry visualization."
+    ],
+    verifiedFacts: [
+      "Powers live profile at github.com/AdityaPatra-dev",
+      "Automated CI/CD pipelines and multi-cloud telemetry",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
+    id: "youtube-download",
+    title: "YouTube Media Extraction Engine",
+    tagline: "High-performance automated YouTube playlist downloader script leveraging PowerShell, yt-dlp, and ffmpeg for parallel media extraction.",
+    category: "software",
+    featured: false,
+    status: "completed",
+    statusLabel: "Completed ✅",
+    period: "2025",
+    githubUrl: "https://github.com/AdityaPatra-dev/Youtube_Download",
+    technologies: ["Python", "PowerShell", "yt-dlp", "FFmpeg", "Concurrency", "Automation"],
+    summary: "An automated batch media downloader script engineered in Python and PowerShell, combining yt-dlp and FFmpeg to download playlists and audio tracks with concurrency and automated metadata tagging.",
+    problem: "Downloading educational playlists and conference recordings manually or with unstable web downloaders leads to broken files, missing metadata, and slow sequential downloads.",
+    solution: "Scripted a robust extraction engine that validates playlist URLs, manages concurrent parallel downloads, applies audio normalization via FFmpeg, and embeds ID3 metadata tags.",
+    myRole: "Authored the download management scripts, FFmpeg post-processing integration, and error recovery handling.",
+    engineeringDecisions: [
+      {
+        title: "Parallel batch extraction",
+        description: "Configured multi-threaded extraction workers to optimize throughput across high-speed connections."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Handling stream throttling and interrupted network downloads gracefully.",
+        resolution: "Added automatic resume flags and exponential backoff retry logic."
+      }
+    ],
+    whatILearned: [
+      "Process concurrency and stream piping between command-line media tools.",
+      "Audio transcoding and metadata embedding automation."
+    ],
+    verifiedFacts: [
+      "Combines Python, PowerShell, yt-dlp, and FFmpeg",
+      "Automates batch and playlist downloads",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
     id: "text-to-video",
     title: "Text-to-Video Generator",
     tagline: "Generative AI pipeline in Python translating PDF documents into narrated video presentations with OpenAI GPT-3.5, TTS, and OpenCV.",
@@ -381,201 +685,6 @@ export const projectsData: Project[] = [
       "Built with Python, BeautifulSoup4, and Requests",
       "Extracts structured infoboxes and summary content",
       "Public repository hosted on GitHub"
-    ]
-  },
-  {
-    id: "novels-world",
-    title: "Novels-World",
-    tagline: "Modern, high-performance offline web novel reader & aggregator with 31+ multi-template sources, Cloudflare bypass, and multi-engine TTS.",
-    category: "software",
-    featured: false,
-    status: "completed",
-    statusLabel: "Active ⚡",
-    period: "2025 – 2026",
-    githubUrl: "https://github.com/AdityaPatra-dev/Novels-World",
-    technologies: ["Dart", "Flutter", "Offline Storage", "TTS (Kokoro/Piper/Sherpa)", "Cloudflare Bypass", "REST"],
-    summary: "A modern, high-performance offline web novel reader and aggregator built in Dart/Flutter, supporting 31+ multi-template content sources, automated chapter caching, Cloudflare challenge bypass, and local neural text-to-speech.",
-    problem: "Reading web literature across different fragmented platforms typically involves intrusive advertisements, loss of access during offline commutes, and poor accessibility.",
-    solution: "Engineered an aggregator client in Dart that scrapes and caches chapters locally into offline storage, integrates multi-engine TTS (Kokoro/Piper/Sherpa) for audio narration, and provides a distraction-free reader interface.",
-    myRole: "Implemented source extraction scrapers, offline storage caching, Cloudflare bypass mechanisms, and TTS player integration.",
-    engineeringDecisions: [
-      {
-        title: "Multi-engine local neural TTS",
-        description: "Supported offline neural voice models (Kokoro, Piper, Sherpa) to allow offline audiobook-style reading without network latency or cloud TTS billing."
-      }
-    ],
-    challenges: [
-      {
-        challenge: "Maintaining reliability across 31+ dynamic web novel website structures.",
-        resolution: "Designed a pluggable parser architecture with template inheritance (Madara, LightNovelWP, NovelFull) to minimize source maintenance overhead."
-      }
-    ],
-    whatILearned: [
-      "Cross-platform Flutter performance tuning for heavy text and audio workloads.",
-      "Resilient scraping and network challenge mitigation in mobile runtimes."
-    ],
-    verifiedFacts: [
-      "31+ multi-template source support",
-      "Multi-engine offline TTS integration",
-      "Public repository hosted on GitHub"
-    ]
-  },
-  {
-    id: "dsa-vault",
-    title: "DSA & Competitive Programming Vault",
-    tagline: "Automated DSA & Competitive Programming vault in C++ & C — Live tracking across LeetCode, Codeforces, CodeChef, HackerRank & HackerEarth with real-time dynamic heatmaps.",
-    category: "software",
-    featured: false,
-    status: "completed",
-    statusLabel: "Active ⚡",
-    period: "2024 – 2026",
-    githubUrl: "https://github.com/AdityaPatra-dev/DSA",
-    technologies: ["C++", "C", "Python", "Data Structures", "Algorithms", "GitHub Actions Automation", "Markdown"],
-    summary: "An automated data structures, algorithms, and competitive programming repository in C++ and C. Integrates GitHub Actions pipelines to dynamically track and render live coding activity across LeetCode, Codeforces, CodeChef, and HackerRank with real-time heatmaps.",
-    problem: "Tracking algorithmic progress across multiple competitive programming platforms often results in scattered solutions and inconsistent documentation of problem patterns.",
-    solution: "Created a centralized vault organized by algorithmic paradigms (DP, Graphs, Trees, Two Pointers) paired with a Python telemetry script running in GitHub Actions that aggregates solved problem counts and updates repository documentation automatically.",
-    myRole: "Implemented algorithmic solutions in C++ and C, designed the problem classification taxonomy, and authored the telemetry automation scripts.",
-    engineeringDecisions: [
-      {
-        title: "Automated telemetry sync via GitHub Actions",
-        description: "Scheduled daily CI jobs that fetch problem statistics from competitive programming profile APIs and dynamically regenerate badges and progress heatmaps in the README."
-      }
-    ],
-    challenges: [
-      {
-        challenge: "Handling diverse and sometimes rate-limited platform APIs.",
-        resolution: "Implemented caching and retry mechanisms with backoff in the Python synchronization script."
-      }
-    ],
-    whatILearned: [
-      "Deepened mastery of core data structures, graph traversals, and dynamic programming.",
-      "Designing automated self-updating repository telemetry with GitHub Actions."
-    ],
-    verifiedFacts: [
-      "Solutions authored in C++ and C",
-      "Automated CI/CD telemetry tracking across 5 competitive platforms",
-      "Public repository hosted on GitHub"
-    ]
-  },
-  {
-    id: "devpulse",
-    title: "DevPulse",
-    tagline: "Cloud Incident & Service Status Tracker monitoring multi-cloud infrastructure and outage telemetry.",
-    category: "cloud_devops",
-    featured: false,
-    status: "completed",
-    statusLabel: "Active ⚡",
-    period: "2025 – 2026",
-    githubUrl: "https://github.com/AdityaPatra-dev/DevPulse",
-    technologies: ["Python", "FastAPI", "Cloud Telemetry", "Status Monitoring", "Docker", "REST API"],
-    summary: "A cloud incident and service status tracker designed to aggregate, observe, and alert on infrastructure outages and operational incidents across major cloud providers.",
-    problem: "Detecting multi-cloud service disruptions often requires checking disparate vendor status dashboards independently, delaying incident response.",
-    solution: "Constructed an automated aggregator in Python that queries cloud provider status feeds, normalizes incident schemas, and surfaces real-time service health via API and dashboard.",
-    myRole: "Engineered status polling engine, schema normalizer, and containerized backend.",
-    engineeringDecisions: [
-      {
-        title: "Normalized incident schema",
-        description: "Standardized heterogeneous incident formats from AWS, GCP, and Azure into a consistent operational status model."
-      }
-    ],
-    challenges: [
-      {
-        challenge: "Polling status feeds without triggering vendor rate limits.",
-        resolution: "Employed adaptive polling intervals based on active incident states."
-      }
-    ],
-    whatILearned: [
-      "Cloud status feed protocols and operational incident management patterns.",
-      "Containerized microservice monitoring architectures."
-    ],
-    verifiedFacts: [
-      "Cloud incident tracker built in Python",
-      "Public repository hosted on GitHub"
-    ]
-  },
-  {
-    id: "youtube-download",
-    title: "YouTube Media Extraction Engine",
-    tagline: "High-performance automated YouTube playlist downloader script leveraging PowerShell, yt-dlp, and ffmpeg for parallel media extraction.",
-    category: "software",
-    featured: false,
-    status: "completed",
-    statusLabel: "Completed ✅",
-    period: "2025",
-    githubUrl: "https://github.com/AdityaPatra-dev/Youtube_Download",
-    technologies: ["Python", "PowerShell", "yt-dlp", "FFmpeg", "Concurrency", "Automation"],
-    summary: "An automated batch media downloader script engineered in Python and PowerShell, combining yt-dlp and FFmpeg to download playlists and audio tracks with concurrency and automated metadata tagging.",
-    problem: "Downloading educational playlists and conference recordings manually or with unstable web downloaders leads to broken files, missing metadata, and slow sequential downloads.",
-    solution: "Scripted a robust extraction engine that validates playlist URLs, manages concurrent parallel downloads, applies audio normalization via FFmpeg, and embeds ID3 metadata tags.",
-    myRole: "Authored the download management scripts, FFmpeg post-processing integration, and error recovery handling.",
-    engineeringDecisions: [
-      {
-        title: "Parallel batch extraction",
-        description: "Configured multi-threaded extraction workers to optimize throughput across high-speed connections."
-      }
-    ],
-    challenges: [
-      {
-        challenge: "Handling stream throttling and interrupted network downloads gracefully.",
-        resolution: "Added automatic resume flags and exponential backoff retry logic."
-      }
-    ],
-    whatILearned: [
-      "Process concurrency and stream piping between command-line media tools.",
-      "Audio transcoding and metadata embedding automation."
-    ],
-    verifiedFacts: [
-      "Combines Python, PowerShell, yt-dlp, and FFmpeg",
-      "Automates batch and playlist downloads",
-      "Public repository hosted on GitHub"
-    ]
-  },
-  {
-    id: "cloud-devops-foundation",
-    title: "Cloud & DevOps Foundation Track",
-    tagline: "7-Stage containerized infrastructure deployment from bare-metal Linux to automated cloud CI/CD.",
-    category: "cloud_devops",
-    featured: false,
-    status: "in_progress",
-    statusLabel: "In Progress · 7-Stage Track",
-    period: "Active",
-    githubUrl: "https://github.com/AdityaPatra-dev",
-    technologies: ["Linux (Ubuntu)", "Systemd", "UFW Firewall", "Docker", "Docker Compose", "Nginx", "GitHub Actions", "Floci (Local AWS)", "AWS"],
-    summary: "A rigorous solo infrastructure project following a strict 7-stage engineering trajectory: creating and hardening a headless Ubuntu VM, configuring network security, authoring production-grade multi-stage Dockerfiles, building a multi-service Compose stack, emulating AWS resources locally using Floci, and deploying through an automated CI/CD pipeline.",
-    problem: "Most developers learn DevOps superficially through cloud console click-ops without understanding Linux system administration, networking fundamentals, firewalls, or container boundaries. This project is specifically structured to prove verifiable systems competence from the ground up.",
-    solution: "Executing a disciplined 7-stage roadmap: (1) Headless Linux server setup & non-root SSH hardening; (2) Port, firewall, and DNS networking validation; (3) Clean multi-stage Docker containerization; (4) Multi-service Compose architecture with reverse proxy; (5) Local cloud testing using Floci (an AWS-compatible offline emulator) to prevent surprise cloud bills; (6) Automated CI/CD deployment pipeline on push; (7) Incident documentation of every breakage and root cause.",
-    myRole: "Engineer executing solo track — responsible for complete Linux configuration, Docker manifests, CI/CD pipeline, and technical break-fix logs.",
-    architectureFlow: [
-      { title: "Stage 1-2: Hardened Linux VM", description: "Headless Ubuntu server, non-root user, SSH keys only, UFW firewall", badge: "Linux / UFW" },
-      { title: "Stage 3: Multi-Stage Dockerfile", description: "Minimal, secure container image built without extraneous build tools", badge: "Docker" },
-      { title: "Stage 4: Compose Stack", description: "Multi-service architecture behind an Nginx reverse proxy with healthchecks", badge: "Compose" },
-      { title: "Stage 5: Floci AWS Emulation", description: "Local AWS-compatible API layer for deterministic infrastructure testing", badge: "Floci / AWS" },
-      { title: "Stage 6-7: CI/CD & Verification", description: "Automated GitHub Actions pipeline with break-fix incident documentation", badge: "GitHub Actions" }
-    ],
-    engineeringDecisions: [
-      {
-        title: "Floci for local AWS emulation",
-        description: "Per project design, using Floci provides an AWS-compatible local execution environment. This enables validating cloud deployment workflows and API calls locally without incurring unintended AWS billing."
-      },
-      {
-        title: "Documenting breakages before fixes",
-        description: "The project strictly enforces logging symptoms and hypotheses before applying fixes, prioritizing genuine engineering troubleshooting over quick paste-and-pray commands."
-      }
-    ],
-    challenges: [
-      {
-        challenge: "Strict requirement against committing any secrets or credentials to Git history across at least 15 meaningful commits.",
-        resolution: "Enforcing pre-commit secret scanning hooks and strict .env.example separation."
-      }
-    ],
-    whatILearned: [
-      "Currently solidifying deep familiarity with Linux systemd service units, IP routing tables, and non-root container permissions.",
-      "Understanding the exact gap between running containers on localhost vs running automated production deployments."
-    ],
-    verifiedFacts: [
-      "Solo 7-stage infrastructure and containerization track",
-      "Strict solo track following a 7-stage infrastructure roadmap",
-      "Architecture incorporates Floci local AWS emulation"
     ]
   }
 ];

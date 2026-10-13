@@ -85,14 +85,6 @@ export const HomePage: React.FC = () => {
           <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed max-w-2xl">
             {profileData.shortBio}
           </p>
-
-          {/* Engineering Mantra Badge */}
-          <div className="pt-1">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-zinc-100/80 dark:bg-zinc-850/80 border border-dashed border-zinc-200 dark:border-zinc-800 text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
-              <span className="text-navy dark:text-blue-400 font-medium">Mantra:</span>
-              <span>{profileData.mantra}</span>
-            </div>
-          </div>
         </div>
 
         {/* Real-time Status & Clock */}

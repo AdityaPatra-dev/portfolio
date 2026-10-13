@@ -44,6 +44,48 @@ export const engineeringNotesData: EngineeringNote[] = [
     tags: ["Flutter", "Dart", "SQLite", "Offline-First", "Riverpod", "Testing"]
   },
   {
+    id: "deployhub-git-to-k8s",
+    slug: "automating-git-to-kubernetes-rollouts-deployhub",
+    title: "Building DeployHub: Intercepting Webhooks to Automate Git-to-Kubernetes Rollouts",
+    date: "February 2026",
+    category: "DevOps",
+    readTime: "5 min read",
+    summary: "How modern PaaS platforms automate container builds, dynamic manifest generation, and zero-downtime rolling updates directly from GitHub push events.",
+    content: [
+      "Self-service platforms like Render, Railway, and Fly.io feel like magic until you unpack the underlying mechanics: webhook ingestion, container build isolation, manifest templating, and rollout observation.",
+      "While developing DeployHub, the goal was building an open, reproducible GitOps bridge that containerizes any repository and deploys it onto a Kubernetes cluster without manual YAML tweaking.",
+      "When a developer pushes to `main`, GitHub sends an HMAC-SHA256 signed POST webhook. DeployHub verifies the signature to prevent payload spoofing, clones the specific commit SHA, and inspects the repository for Dockerfiles or language runtimes.",
+      "Instead of writing static YAML files to disk, DeployHub dynamically generates Kubernetes Deployment and Service specs with injected environment variables, CPU/memory limits, and rolling-update strategies. Using the Kubernetes Python client, it applies manifests and polls rollout status until pods report healthy readiness checks."
+    ],
+    keyTakeaways: [
+      "Always authenticate external webhook payloads with HMAC-SHA256 secret tokens.",
+      "Dynamic manifest generation prevents configuration drift between staging and production environments.",
+      "Rolling updates must configure explicit maxUnavailable and maxSurge thresholds to guarantee zero downtime."
+    ],
+    tags: ["DevOps", "Kubernetes", "FastAPI", "CI/CD", "Docker", "GitOps"]
+  },
+  {
+    id: "linux-namespaces-cgroups",
+    slug: "linux-internals-namespaces-cgroups-container-boundaries",
+    title: "Linux System Internals: Process Namespaces, cgroups v2, and Container Boundaries",
+    date: "January 2026",
+    category: "Linux",
+    readTime: "7 min read",
+    summary: "Containers are not lightweight virtual machines—they are ordinary Linux processes isolated by kernel namespaces and governed by control groups.",
+    content: [
+      "One of the most persistent misconceptions in cloud engineering is treating containers as mini virtual machines. In reality, there is no guest kernel running inside a Docker container. Every container shares the host Linux kernel.",
+      "Linux creates container isolation through two primary kernel features: namespaces (which restrict what a process can *see*) and control groups or cgroups (which restrict what a process can *use*).",
+      "Namespaces isolate process trees (PID namespace), network interfaces and routing tables (NET namespace), filesystem mount points (MNT namespace), inter-process communication (IPC namespace), and user/group ID mappings (USER namespace). When you run `ps aux` inside a container, you only see PID 1 because the kernel filters processes outside that PID namespace.",
+      "Meanwhile, cgroups v2 enforce hard memory limits (`memory.max`), CPU quotas (`cpu.max`), and I/O bandwidth. If a container exceeds its memory quota, the kernel OOM killer terminates the process directly, producing the familiar Kubernetes `OOMKilled` status code 137. Understanding this relationship makes diagnosing cluster failures straightforward."
+    ],
+    keyTakeaways: [
+      "Containers share the host kernel; isolation is enforced via kernel namespaces and cgroups v2.",
+      "The USER namespace allows running containers with root inside the container while mapping to an unprivileged UID on the host.",
+      "Kubernetes exit code 137 indicates the Linux kernel OOM killer terminated the process due to cgroup limits."
+    ],
+    tags: ["Linux", "Kernel", "cgroups", "Namespaces", "Docker", "Systems"]
+  },
+  {
     id: "lora-qlora-quantization-vram",
     slug: "understanding-lora-qlora-quantization-vram",
     title: "Understanding LoRA, QLoRA, and Quantization for Local LLM Workflows",
@@ -55,7 +97,7 @@ export const engineeringNotesData: EngineeringNote[] = [
       "Full parameter fine-tuning of modern transformer models requires saving gradients, optimizer states (like Adam's first and second moments), and model weights. For an 8-billion parameter model in 16-bit precision, this easily consumes over 60GB of VRAM—far beyond what most student workstations possess.",
       "Parameter-Efficient Fine-Tuning (PEFT) with LoRA (Low-Rank Adaptation) addresses this by freezing the pre-trained model weights and injecting trainable rank decomposition matrices into the transformer layers (specifically the query and value projection matrices). If a weight matrix is d × k, LoRA represents the weight update ΔW as B × A, where B is d × r and A is r × k, with rank r typically between 8 and 64. This reduces trainable parameters by over 98%.",
       "QLoRA takes this a step further by quantizing the frozen base model to 4-bit NormalFloat (NF4) and introducing Double Quantization. During forward passes, 4-bit weights are dequantized to 16-bit floating point for matrix multiplication, while gradients only compute and accumulate across the small LoRA adapters.",
-      "While building local RAG pipelines, understanding these memory boundaries guided when to rely on context retrieval versus when fine-tuning adapters made practical sense."
+      "While building mastering-llms and local RAG retrieval pipelines, understanding these memory boundaries guided when to rely on context retrieval versus when fine-tuning adapters made practical sense."
     ],
     keyTakeaways: [
       "LoRA decomposes weight updates into low-rank matrices, drastically reducing gradient storage requirements.",
@@ -63,5 +105,26 @@ export const engineeringNotesData: EngineeringNote[] = [
       "For domain-specific factual knowledge, RAG with dense vector retrieval is usually faster to iterate on than adapter training."
     ],
     tags: ["Machine Learning", "PyTorch", "Transformers", "LoRA", "QLoRA", "Quantization"]
+  },
+  {
+    id: "local-first-engine-orchestration",
+    slug: "local-first-media-processing-subprocess-sandboxing",
+    title: "Local-First Media Processing: Orchestrating 9 CLI Engines with Subprocess Sandboxing",
+    date: "March 2026",
+    category: "Architecture",
+    readTime: "5 min read",
+    summary: "Architectural insights from Universal File Studio: managing FFmpeg pipes, real-time WebSocket progress streaming, and preventing malformed inputs from crashing local runtimes.",
+    content: [
+      "Online file conversion tools pose severe privacy vulnerabilities by uploading confidential documents, contracts, and audio recordings to third-party cloud infrastructure. Universal File Studio was designed to prove that workstation-class media processing can run entirely locally without third-party dependencies.",
+      "The architectural challenge lies in coordinating 9 disparate command-line tools—FFmpeg, ImageMagick, Pandoc, LibreOffice, Tesseract OCR, QPDF, Ghostscript, Poppler, and 7-Zip—each with different exit codes, progress logging conventions, and error formatting.",
+      "Instead of invoking shell commands synchronously, the Python backend executes worker processes using asynchronous pipes (`asyncio.subprocess`). For FFmpeg, stdout is piped to a progress parser that extracts timestamps, calculates percentage completion, and broadcasts live telemetry over WebSockets to the web interface.",
+      "To prevent malformed inputs (such as corrupted PDF zip bombs or infinite loop SVGs) from freezing system resources, every subprocess is executed inside an isolated sandbox with memory ceiling clamps and strict timeout watchers."
+    ],
+    keyTakeaways: [
+      "Local-first architecture guarantees zero privacy leakage and removes artificial cloud upload limits.",
+      "Never invoke external binary tools with shell=True; use isolated argument arrays and asynchronous process pipes.",
+      "WebSocket progress streaming provides high-responsiveness feedback during heavy video transcode operations."
+    ],
+    tags: ["Architecture", "Python", "FFmpeg", "FastAPI", "WebSockets", "Sandboxing"]
   }
 ];

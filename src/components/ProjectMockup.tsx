@@ -10,10 +10,8 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
     case 'cloudarena':
       return (
         <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
-          {/* Subtle grid pattern background */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
 
-          {/* Window Header */}
           <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
@@ -27,7 +25,6 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
             </span>
           </div>
 
-          {/* Cluster Status & Chaos Remediation visual */}
           <div className="grid grid-cols-3 gap-2 my-auto z-10 pt-2">
             <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
               <div className="text-zinc-500 text-[9px]">NODES</div>
@@ -54,7 +51,6 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
             </div>
           </div>
 
-          {/* Terminal Event Log preview */}
           <div className="bg-zinc-900/70 border border-zinc-800/70 rounded p-2 text-[10px] space-y-1 z-10">
             <div className="flex items-center justify-between text-zinc-400">
               <span>[HMAC-SHA256] Webhook validation</span>
@@ -70,10 +66,8 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
     case 'taarak':
       return (
         <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-slate-950 text-slate-300 font-mono text-[11px] p-3.5 border-b border-slate-800 flex flex-col justify-between select-none ${className}`}>
-          {/* Subtle dot grid */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
 
-          {/* Window Header */}
           <div className="flex items-center justify-between border-b border-slate-800/80 pb-2 z-10">
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
@@ -86,7 +80,6 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
             </span>
           </div>
 
-          {/* Sync Engine Status */}
           <div className="grid grid-cols-2 gap-2 my-auto z-10 pt-2">
             <div className="bg-slate-900/90 border border-slate-800 p-2.5 rounded space-y-1">
               <div className="text-slate-400 text-[9px] flex items-center justify-between">
@@ -115,7 +108,6 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
             </div>
           </div>
 
-          {/* Sync Progress Indicator */}
           <div className="bg-slate-900/60 border border-slate-800/60 rounded px-2.5 py-1.5 flex items-center justify-between text-[10px] z-10">
             <span className="text-slate-400">Sync Status: Real-time Peer-to-Peer</span>
             <span className="text-emerald-400">Bi-directional Synchronized</span>
@@ -401,57 +393,379 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
         </div>
       );
 
-    case 'cloud-devops-foundation':
-    default:
+    case 'manhua-extractor':
       return (
         <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#8b5cf6_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
 
-          {/* Window Header */}
           <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
-              <span className="ml-2 text-zinc-400 text-[10px]">devops-pipeline // Cloud & DevOps Foundation</span>
+              <span className="ml-2 text-zinc-400 text-[10px]">manhua-extractor // webp-compiler</span>
             </div>
-            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-800/50">
-              PIPELINE PASSED
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-purple-950/80 text-purple-400 border border-purple-800/50">
+              CBZ / PDF & OPDS
             </span>
           </div>
 
-          {/* Visual Stages */}
           <div className="my-auto z-10 pt-2 space-y-2">
-            <div className="grid grid-cols-4 gap-1.5 text-center text-[10px]">
-              <div className="bg-zinc-900/90 border border-emerald-800/60 p-2 rounded">
-                <div className="text-emerald-400 font-bold">✓ Lint</div>
-                <div className="text-[8px] text-zinc-500 mt-0.5">SonarQube</div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">WEBP COMPRESSION</div>
+                <div className="text-xs font-semibold text-purple-400">-52% File Size</div>
               </div>
-              <div className="bg-zinc-900/90 border border-emerald-800/60 p-2 rounded">
-                <div className="text-emerald-400 font-bold">✓ Build</div>
-                <div className="text-[8px] text-zinc-500 mt-0.5">Docker Multi</div>
-              </div>
-              <div className="bg-zinc-900/90 border border-emerald-800/60 p-2 rounded">
-                <div className="text-emerald-400 font-bold">✓ Test</div>
-                <div className="text-[8px] text-zinc-500 mt-0.5">Unit & Reg</div>
-              </div>
-              <div className="bg-zinc-900/90 border border-emerald-800/60 p-2 rounded">
-                <div className="text-emerald-400 font-bold">✓ Deploy</div>
-                <div className="text-[8px] text-zinc-500 mt-0.5">k3d Cluster</div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">OPDS SERVER</div>
+                <div className="text-xs font-semibold text-zinc-200">Port 8080 Active</div>
               </div>
             </div>
 
             <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
-              <span className="text-zinc-400">Metrics: Prometheus + Grafana</span>
-              <span className="text-emerald-400">Zero Vulnerabilities</span>
+              <span className="text-zinc-400">Target: Tachiyomi / Mihon & Android</span>
+              <span className="text-emerald-400">E-Ink Slicer Ready</span>
             </div>
           </div>
 
-          {/* Bottom tag */}
           <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
-            <span>Infrastructure Track</span>
-            <span className="text-zinc-400">Production Validated</span>
+            <span>Python · Chaquopy · Multi-Threading</span>
+            <span className="text-zinc-400">Zero Artifacts</span>
+          </div>
+        </div>
+      );
+
+    case 'gemeni-smart-note':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="ml-2 text-zinc-400 text-[10px]">gemini-smart-note // study-ai</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-sky-950/80 text-sky-400 border border-sky-800/50">
+              GEMINI FLASH
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+              <div className="text-[9px] text-zinc-500">NOTE SYNTHESIZER</div>
+              <div className="text-xs font-semibold text-zinc-200">Automated Concept Outlining & Flashcards</div>
+            </div>
+
+            <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Contextual Q&A: Active Memory</span>
+              <span className="text-emerald-400">Streaming Response ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>Google Gemini REST API</span>
+            <span className="text-zinc-400">Markdown & LaTeX</span>
+          </div>
+        </div>
+      );
+
+    case 'portfolio-site':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#60a5fa_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="ml-2 text-zinc-400 text-[10px]">portfolio // adityapatradev.web.app</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-blue-950/80 text-blue-400 border border-blue-800/50">
+              FIREBASE HOSTING
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">FRAMEWORK</div>
+                <div className="text-zinc-200 font-semibold text-xs mt-0.5">React + Vite</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">STYLING</div>
+                <div className="text-zinc-200 font-semibold text-xs mt-0.5">Tailwind CSS</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">PERFORMANCE</div>
+                <div className="text-emerald-400 font-semibold text-xs mt-0.5">60 FPS Canvas</div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Live Telemetry: Dynamic GitHub API Sync</span>
+              <span className="text-emerald-400">Online ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>TypeScript · React 18 · Tailwind</span>
+            <span className="text-zinc-400">adityapatradev.web.app</span>
+          </div>
+        </div>
+      );
+
+    case 'adityapatra-dev-engine':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="ml-2 text-zinc-400 text-[10px]">profile-engine // telemetry-ci</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-800/50">
+              CI/CD CRON
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">3D MATRIX</div>
+                <div className="text-emerald-400 font-semibold text-xs mt-0.5">Automated SVG</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">SNAKE GRAPH</div>
+                <div className="text-emerald-400 font-semibold text-xs mt-0.5">Daily Render</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">TELEMETRY</div>
+                <div className="text-cyan-400 font-semibold text-xs mt-0.5">Multi-Cloud</div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Workflow: profile-telemetry.yml</span>
+              <span className="text-emerald-400">Scheduled Daily ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>Python · GitHub Actions · SVG</span>
+            <span className="text-zinc-400">Self-Updating Engine</span>
+          </div>
+        </div>
+      );
+
+    case 'devpulse':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="ml-2 text-zinc-400 text-[10px]">devpulse // cloud-status</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-orange-950/80 text-orange-400 border border-orange-800/50">
+              STATUS TRACKER
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">AWS HEALTH</div>
+                <div className="text-emerald-400 font-semibold text-xs mt-0.5">Operational</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">GCP CLOUD</div>
+                <div className="text-emerald-400 font-semibold text-xs mt-0.5">Operational</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">GITHUB STATUS</div>
+                <div className="text-emerald-400 font-semibold text-xs mt-0.5">Operational</div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Incident Poller: Adaptive Normalizer</span>
+              <span className="text-emerald-400">All Systems Normal ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>FastAPI · Status Polling</span>
+            <span className="text-zinc-400">Multi-Cloud Telemetry</span>
+          </div>
+        </div>
+      );
+
+    case 'youtube-download':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ef4444_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="ml-2 text-zinc-400 text-[10px]">youtube-download // media-extractor</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-red-950/80 text-red-400 border border-red-800/50">
+              YT-DLP + FFMPEG
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="grid grid-cols-2 gap-2">
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">PLAYLIST EXTRACTOR</div>
+                <div className="text-xs font-semibold text-red-400">Parallel Batch Queue</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">AUDIO ENCODER</div>
+                <div className="text-xs font-semibold text-zinc-200">FFmpeg 320kbps MP3</div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Metadata: Auto ID3 Tagging & Album Art</span>
+              <span className="text-emerald-400">Complete ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>PowerShell · Python · yt-dlp</span>
+            <span className="text-zinc-400">High-Throughput Extraction</span>
+          </div>
+        </div>
+      );
+
+    case 'text-to-video':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ec4899_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="ml-2 text-zinc-400 text-[10px]">text-to-video // genai-pipeline</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-pink-950/80 text-pink-400 border border-pink-800/50">
+              GPT-3.5 + OPENCV
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">PDF PARSER</div>
+                <div className="text-xs font-semibold text-zinc-200">PyPDF Extractor</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">VOICE SYNTHESIS</div>
+                <div className="text-xs font-semibold text-pink-400">Neural TTS</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">VIDEO STITCHER</div>
+                <div className="text-xs font-semibold text-zinc-200">OpenCV MP4</div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Synchronization: Audio-Duration Visual Alignment</span>
+              <span className="text-emerald-400">Rendered ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>Python · OpenAI API · OpenCV</span>
+            <span className="text-zinc-400">Automated Slide Narrator</span>
+          </div>
+        </div>
+      );
+
+    case 'web-scrapper-wikipedia':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#14b8a6_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="ml-2 text-zinc-400 text-[10px]">wiki-scraper // dom-parser</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-teal-950/80 text-teal-400 border border-teal-800/50">
+              BEAUTIFULSOUP4
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="grid grid-cols-2 gap-2">
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">INFOBOX PARSER</div>
+                <div className="text-xs font-semibold text-teal-400">Structured Key-Value</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">QUERY ENGINE</div>
+                <div className="text-xs font-semibold text-zinc-200">Terminal CLI Mode</div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Extraction: Summary, Disambiguation & Tables</span>
+              <span className="text-emerald-400">Clean JSON Output ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>Python · BeautifulSoup · Requests</span>
+            <span className="text-zinc-400">Zero External API Fees</span>
+          </div>
+        </div>
+      );
+
+    default:
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <span className="ml-2 text-zinc-400 text-[10px]">telemetry // engineering-service</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-blue-950/80 text-blue-400 border border-blue-800/50">
+              OPERATIONAL
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Repository Architecture</span>
+              <span className="text-emerald-400">Verified ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>Aditya Patra Engineering Lab</span>
+            <span className="text-zinc-400">Production Ready</span>
           </div>
         </div>
       );

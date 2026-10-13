@@ -70,8 +70,8 @@ export const communitiesData: ExperienceCommunity[] = [
     location: "Bhubaneswar, Odisha",
     description: "Active member in the technical Cloud & DevOps domain, engaging in peer code reviews, hands-on Linux system administration, and infrastructure automation.",
     highlights: [
-      "Assigned solo 7-stage Cloud/DevOps Foundation Project spanning headless Linux VM setup, SSH/firewall hardening, multi-stage Docker containerization, and automated CI/CD.",
-      "Adopting Floci for offline AWS emulation to test cloud-native deployment patterns safely without accidental billing overhead.",
+      "Hands-on Linux system administration, SSH/firewall hardening, multi-stage Docker containerization, and CI/CD automation pipelines.",
+      "Adopting offline cloud emulation tools to test cloud-native deployment patterns safely without accidental billing overhead.",
       "Participating in regular architectural discussions covering container orchestration and DevOps best practices."
     ]
   },
