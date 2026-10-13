@@ -308,22 +308,34 @@ export const projectsData: Project[] = [
   {
     id: "novels-world",
     title: "Novels-World",
-    tagline: "Modern, high-performance offline web novel reader & aggregator with 31+ multi-template sources, Cloudflare bypass, and multi-engine TTS.",
+    tagline: "Containerized & offline web novel reader & aggregator with 31+ multi-template sources, JA3 TLS Cloudflare bypass, and 0ms gapless neural audio.",
     category: "software",
     featured: false,
     status: "completed",
     statusLabel: "Active ⚡",
     period: "2025 – 2026",
     githubUrl: "https://github.com/AdityaPatra-dev/Novels-World",
-    technologies: ["Dart", "Flutter", "Offline Storage", "TTS (Kokoro/Piper/Sherpa)", "Cloudflare Bypass", "REST"],
-    summary: "A modern, high-performance offline web novel reader and aggregator built in Dart/Flutter, supporting 31+ multi-template content sources, automated chapter caching, Cloudflare challenge bypass, and local neural text-to-speech.",
-    problem: "Reading web literature across different fragmented platforms typically involves intrusive advertisements, loss of access during offline commutes, and poor accessibility.",
-    solution: "Engineered an aggregator client in Dart that scrapes and caches chapters locally into offline storage, integrates multi-engine TTS (Kokoro/Piper/Sherpa) for audio narration, and provides a distraction-free reader interface.",
-    myRole: "Implemented source extraction scrapers, offline storage caching, Cloudflare bypass mechanisms, and TTS player integration.",
+    technologies: ["Flutter", "Dart", "Docker", "Docker Compose", "JA3 TLS Bypass", "ExoPlayer", "MPEG Trimming", "Offline Storage", "TTS (Kokoro/Piper/Sherpa)"],
+    summary: "A modern, high-performance offline web novel reader and studio-grade AI audiobook streaming application built in Flutter and Dart. Published as a production Docker container (adityapatra/novels-world), featuring 31+ catalog sources, JA3 TLS Cloudflare clearance, and a sample-accurate 0ms gapless audio engine.",
+    problem: "Web novel reading across fragmented ad-filled websites breaks during offline commutes, while conventional mobile TTS adds jarring 1.5-second pauses between every sentence due to decoder teardowns and silent MPEG frames.",
+    solution: "Architected a cross-platform client with transparent JA3 TLS fingerprinting to clear Cloudflare challenges, offline chapter caching, and a monotonic FIFO ring buffer that trims trailing MPEG silence frames in real-time for zero-gap continuous audiobook narration.",
+    myRole: "Engineered scraper extraction heuristics across 31+ catalogs, the real-time MPEG silence stripping algorithm, the gapless audio FIFO ring buffer, and Docker container packaging.",
+    architectureFlow: [
+      { title: "Flutter Presentation", description: "Interactive reader with real-time paragraph highlighting & theme palettes", badge: "Flutter / Dart" },
+      { title: "Anti-Bot Bypass", description: "JA3 TLS ClientHello fingerprinting & transparent Turnstile cookie sync", badge: "JA3 / TLS" },
+      { title: "Source Extractors", description: "Multi-template parsers for Madara, LightNovelWP, NovelFull, and Astro sites", badge: "31+ Sources" },
+      { title: "FIFO Ring Buffer", description: "Background queue pre-synthesizing paragraph N+1 while N is actively playing", badge: "RingBuffer" },
+      { title: "MPEG Silence Trimmer", description: "Analyzes 144-byte frame sync markers to strip silent padding in microseconds", badge: "MPEG Trimmer" },
+      { title: "Docker Distribution", description: "Published on Docker Hub (adityapatra/novels-world) as standalone web container", badge: "Docker Hub" }
+    ],
     engineeringDecisions: [
       {
-        title: "Multi-engine local neural TTS",
-        description: "Supported offline neural voice models (Kokoro, Piper, Sherpa) to allow offline audiobook-style reading without network latency or cloud TTS billing."
+        title: "Byte-level MPEG trailing silence stripping",
+        description: "Neural TTS engines inject 30-40 silent frames onto every generated clip. Slicing these frames at the byte level before queuing eliminates unnatural pauses between sentences."
+      },
+      {
+        title: "Docker containerization for self-hosted reading",
+        description: "Packaged the reader as an automated NGINX web container published on Docker Hub, enabling users to host their own private web instance with Docker Compose."
       }
     ],
     challenges: [
@@ -333,12 +345,14 @@ export const projectsData: Project[] = [
       }
     ],
     whatILearned: [
-      "Cross-platform Flutter performance tuning for heavy text and audio workloads.",
-      "Resilient scraping and network challenge mitigation in mobile runtimes."
+      "Low-level MPEG audio frame structure and native ExoPlayer AudioTrack queue scheduling.",
+      "Cross-platform Flutter performance tuning for heavy text and continuous audio workloads.",
+      "Containerizing Flutter web builds into hardened, lightweight Docker images."
     ],
     verifiedFacts: [
-      "31+ multi-template source support",
-      "Multi-engine offline TTS integration",
+      "31+ multi-template source support with 44 passing tests",
+      "Published on Docker Hub as adityapatra/novels-world",
+      "Features JA3 TLS bypass and 0ms gapless neural audio",
       "Public repository hosted on GitHub"
     ]
   },
@@ -382,41 +396,55 @@ export const projectsData: Project[] = [
   {
     id: "manhua-extractor",
     title: "Manhua-extractor",
-    tagline: "Universal Manga/Manhua downloader, offline WebP CBZ/PDF compiler & standalone Android app with OPDS, E-Ink slicer, and Mihon/Tachiyomi support.",
+    tagline: "Universal Manga/Manhua downloader, lossless WebP CBZ compiler & containerized app with Docker Compose, FlareSolverr sidecar, and OPDS server.",
     category: "software",
     featured: false,
     status: "completed",
     statusLabel: "Active ⚡",
     period: "2025 – 2026",
     githubUrl: "https://github.com/AdityaPatra-dev/Manhua-extractor",
-    technologies: ["Python", "Android", "Chaquopy", "WebP", "CBZ / PDF", "OPDS Server", "Concurrency"],
-    summary: "A universal manga and manhua downloader and compiler featuring lossless WebP optimization, automatic chapter packaging into CBZ and PDF formats, an embedded OPDS library server, and integration for Mihon/Tachiyomi and Android.",
-    problem: "Preserving and reading web comics offline typically involves low-quality re-encodings, massive file sizes, and lack of standardized metadata for e-readers and mobile devices.",
-    solution: "Engineered a multithreaded extraction pipeline that fetches high-resolution comic panels, performs concurrent WebP compression to minimize storage foot-print, compiles clean CBZ/PDF archives, and serves them via an embedded OPDS server.",
-    myRole: "Engineered scraping and image decompression pipelines, WebP batch encoder, CBZ/PDF archive compiler, and OPDS server.",
+    technologies: ["Python", "Docker", "Docker Compose", "FlareSolverr Sidecar", "curl_cffi (JA3 TLS)", "OPDS Server", "WebP", "Chaquopy", "CBZ / PDF"],
+    summary: "A universal manga and manhua downloader and compiler featuring lossless WebP optimization, automatic chapter packaging into CBZ/PDF formats, an embedded OPDS library server, and official Docker Hub distribution (adityapatra/manhua-extractor) with FlareSolverr sidecar orchestration.",
+    problem: "Preserving and reading web comics offline typically involves low-quality re-encodings, massive file sizes, broken image streams from aggressive anti-hotlink CDNs, and persistent Cloudflare Turnstile blocks.",
+    solution: "Engineered a multithreaded extraction pipeline combining native curl_cffi Chrome 124 TLS fingerprinting, an optional FlareSolverr sidecar for automated Turnstile clearance, concurrent WebP compression, clean CBZ/PDF packaging, and an embedded OPDS catalog server.",
+    myRole: "Engineered scraping and image decompression pipelines, curl_cffi TLS spoofing layer, FlareSolverr Docker integration, WebP batch encoder, and OPDS catalog server.",
+    architectureFlow: [
+      { title: "Presentation Layer", description: "Browser Web GUI (port 8000), interactive CLI runner, or Mihon/Tachiyomi client", badge: "Web / CLI" },
+      { title: "TLS Impersonation", description: "curl_cffi mimicking Chrome 124 JA3/JA4 fingerprints and HTTP/2 framing", badge: "curl_cffi" },
+      { title: "FlareSolverr Sidecar", description: "Headless container solving interactive Turnstile challenges and caching cookies", badge: "Docker Sidecar" },
+      { title: "Extractor Pipeline", description: "AST AST crawler for Astro/Next.js data and dynamic anti-hotlink Referer headers", badge: "Async Engine" },
+      { title: "WebP Compressor", description: "Lossless compression cutting raw chapter storage by 52% with ComicInfo XML", badge: "WebP / CBZ" },
+      { title: "OPDS Catalog Server", description: "Embedded catalog server broadcasting libraries to local Wi-Fi e-readers", badge: "OPDS v1.2" }
+    ],
     engineeringDecisions: [
       {
-        title: "Asynchronous parallel chunk downloads",
-        description: "Employed connection pooling and parallel panel fetching to maximize download throughput while respecting source rate limits."
+        title: "Two-tier Cloudflare clearance (Native TLS + Sidecar)",
+        description: "Uses curl_cffi to match Chrome 124 TLS ClientHello handshakes for zero-overhead clearance, automatically routing to a local FlareSolverr sidecar only when interactive challenges emerge."
       },
       {
-        title: "Lossless WebP image packaging",
-        description: "Compressed raw image frames to WebP before compiling into CBZ archives, cutting file sizes by 40-60% without visual degradation."
+        title: "Embedded OPDS server for local offline distribution",
+        description: "Exposes standard OPDS v1.2 endpoints so mobile reader apps (Mihon/Tachiyomi) and E-Ink devices sync downloads directly over home Wi-Fi with zero cloud intermediaries."
       }
     ],
     challenges: [
       {
         challenge: "Handling long vertical-scroll webtoon strips on fixed-ratio E-Ink screens.",
         resolution: "Implemented an automated smart slicer that splits tall continuous panels at whitespace boundaries."
+      },
+      {
+        challenge: "Anti-hotlink CDN shields blocking direct panel image downloads.",
+        resolution: "Synthesized host-specific Referer, Origin, and Sec-Fetch-Site headers per image chunk."
       }
     ],
     whatILearned: [
-      "High-throughput batch image optimization and archive format specifications (CBZ/PDF).",
-      "Embedded OPDS catalog server standards for cross-device synchronization."
+      "Transport-layer TLS ClientHello fingerprinting, cipher suite ordering, and HTTP/2 pseudo-headers.",
+      "Multi-container Docker Compose architectures with healthcheck gates and sidecar proxies.",
+      "OPDS streaming protocol specifications and WebP lossless packaging standards."
     ],
     verifiedFacts: [
-      "Built with Python and Chaquopy for Android",
-      "Supports WebP CBZ/PDF compilation and OPDS serving",
+      "57 passing automated unit tests documented in repository",
+      "Published on Docker Hub as adityapatra/manhua-extractor",
+      "Features curl_cffi JA3 TLS bypass, FlareSolverr sidecar, and OPDS server",
       "Public repository hosted on GitHub"
     ]
   },

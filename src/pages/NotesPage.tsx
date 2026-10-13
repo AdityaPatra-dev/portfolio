@@ -4,18 +4,19 @@ import { ArrowUpRight } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { engineeringNotesData } from '../data/notes';
 
-type CategoryFilter = 'all' | 'Kubernetes' | 'DevOps' | 'Machine Learning' | 'Architecture' | 'Linux';
+type CategoryFilter = 'all' | 'Networking' | 'DevOps' | 'Kubernetes' | 'Architecture' | 'Linux' | 'Machine Learning';
 
 export const NotesPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>('all');
 
   const categories: Array<{ id: CategoryFilter; label: string }> = [
     { id: 'all', label: 'All Notes' },
+    { id: 'Networking', label: 'Networking & Bypasses' },
+    { id: 'DevOps', label: 'DevOps & Containers' },
     { id: 'Kubernetes', label: 'Kubernetes' },
-    { id: 'DevOps', label: 'DevOps' },
-    { id: 'Machine Learning', label: 'Machine Learning' },
-    { id: 'Architecture', label: 'Architecture' },
+    { id: 'Architecture', label: 'Offline Architecture' },
     { id: 'Linux', label: 'Linux Internals' },
+    { id: 'Machine Learning', label: 'Machine Learning' },
   ];
 
   const filteredNotes = selectedCategory === 'all'

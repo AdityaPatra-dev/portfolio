@@ -78,7 +78,7 @@ export interface EngineeringNote {
   slug: string;
   title: string;
   date: string;
-  category: 'Kubernetes' | 'DevOps' | 'Machine Learning' | 'Architecture' | 'Linux';
+  category: 'Kubernetes' | 'DevOps' | 'Machine Learning' | 'Architecture' | 'Linux' | 'Networking';
   readTime: string;
   summary: string;
   content: string[];
