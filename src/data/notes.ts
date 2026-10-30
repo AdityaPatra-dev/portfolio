@@ -86,6 +86,27 @@ export const engineeringNotesData: EngineeringNote[] = [
     tags: ["Architecture", "Flutter", "Audio Engineering", "ExoPlayer", "MPEG", "TTS"]
   },
   {
+    id: "silence-aware-vad-audio-chunking-asr",
+    slug: "silence-aware-vad-audio-slicing-multi-engine-asr",
+    title: "Silence-Aware VAD Audio Slicing & Multi-Engine ASR: Zero-Drift Subtitling with Deepgram, Groq, and Gemini",
+    date: "April 2026",
+    category: "Machine Learning",
+    readTime: "7 min read",
+    summary: "Engineering lessons from SubtitleGen AI: why naive fixed-time audio slicing breaks speech models, implementing FFmpeg silence-detection VAD, and stitching multi-chunk timecodes with zero millisecond drift.",
+    content: [
+      "Transcribing long-form media (feature films, multi-hour lectures, podcast episodes) with cloud speech-to-text APIs faces a hard constraint: payload size limits. Standard providers enforce strict payload caps (e.g., 25MB for Groq Whisper LPU). The naive developer reaction is splitting audio into fixed 30-second or 60-second intervals. This invariably cuts words and phonemes right in the middle of vocalization, causing catastrophic ASR hallucination and missing punctuation.",
+      "In SubtitleGen AI, we engineered a deterministic two-phase audio processing pipeline using native FFmpeg. Phase 1 applies EBU R128 loudness normalization and converts the stream to 16kHz mono Vorbis/WAV. Phase 2 passes the stream through the FFmpeg 'silencedetect' filter (detecting acoustic dips below -30dB lasting at least 350ms).",
+      "Instead of arbitrary interval chops, our VAD chunk calculator computes split points strictly at the exact midpoint of natural human pauses. To guarantee provider compatibility, it enforces a hard 20MB file cap while strictly preserving complete semantic sentences.",
+      "The hardest distributed challenge was timecode drift across chunks. Because speech recognition engines transcribe each audio slice independently, their returned word timestamps start at 00:00:00.000. We solved this by reading the microsecond-accurate sample start offsets from the source audio headers and injecting a monotonic time-offset vector during chunk stitching, ensuring zero millisecond drift across 3+ hour films."
+    ],
+    keyTakeaways: [
+      "Naive time-based audio chunking splits words mid-pronunciation, causing severe transcription hallucination and missing punctuation.",
+      "FFmpeg silencedetect (-30dB threshold) enables natural breath-boundary chunking that respects human speech patterns.",
+      "Tracking microsecond container offsets prevents cumulative floating-point timestamp drift across multi-hour media files."
+    ],
+    tags: ["Machine Learning", "FFmpeg", "VAD", "Speech-to-Text", "Deepgram", "Groq Whisper", "Audio DSP"]
+  },
+  {
     id: "k8s-local-incident-response",
     slug: "simulating-k8s-incident-response-k3d",
     title: "Simulating Kubernetes Incident Response Locally with k3d and Chaos Injections",

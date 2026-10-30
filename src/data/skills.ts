@@ -10,7 +10,7 @@ export const skillGroupsData: SkillGroup[] = [
       { name: "C", status: "used_in_projects", note: "Academic systems programming, data structures, and memory fundamentals" },
       { name: "C++", status: "used_in_projects", note: "Algorithmic problem solving, competitive programming, and performance" },
       { name: "Java", status: "used_in_projects", note: "Core CS curriculum, OOP principles, and design patterns" },
-      { name: "Dart", status: "used_in_projects", note: "Used in TAARAK & Novels-World mobile applications" },
+      { name: "Dart", status: "used_in_projects", note: "Used in SubtitleGen AI, TAARAK & Novels-World applications" },
       { name: "SQL", status: "used_in_projects", note: "Relational queries, schema design, indexes, and transactions" },
       { name: "Bash / Shell", status: "used_in_projects", note: "Linux system scripting, environment automation, and CI pipelines" },
       { name: "JavaScript / TypeScript", status: "used_in_projects", note: "Frontend interfaces, web tooling, and React components" }
@@ -47,7 +47,8 @@ export const skillGroupsData: SkillGroup[] = [
       { name: "Vector Databases & Embeddings", status: "used_in_projects", note: "Cosine similarity search and FAISS vector indexing" },
       { name: "LoRA / PEFT", status: "learning_exploring", note: "Parameter-efficient fine-tuning via low-rank adapter matrices" },
       { name: "QLoRA & 4-bit Quantization", status: "learning_exploring", note: "Running and adapting larger models within constrained GPU VRAM" },
-      { name: "Model Inference Optimization", status: "used_in_projects", note: "Local execution with memory-conscious batching and KV caching" }
+      { name: "Model Inference Optimization", status: "used_in_projects", note: "Local execution with memory-conscious batching and KV caching" },
+      { name: "Speech AI & Multi-Engine ASR", status: "used_in_projects", note: "Deepgram Nova-3, Groq Whisper LPU, and Google Gemini Flash ASR in SubtitleGen" }
     ]
   },
   {
@@ -67,7 +68,8 @@ export const skillGroupsData: SkillGroup[] = [
     title: "Software Engineering & Tools",
     description: "Development patterns, frameworks, and developer productivity tooling.",
     skills: [
-      { name: "Flutter & Riverpod", status: "used_in_projects", note: "State-managed reactive cross-platform mobile architecture" },
+      { name: "Flutter & Riverpod", status: "used_in_projects", note: "State-managed reactive cross-platform desktop & mobile architecture" },
+      { name: "FFmpeg & Audio DSP", status: "used_in_projects", note: "Silence-aware VAD chunking, EBU R128 loudness normalization, and stream extraction" },
       { name: "Node.js & Express", status: "used_in_projects", note: "Server-side REST APIs and streaming media endpoints in beat_wave" },
       { name: "Next.js & React", status: "used_in_projects", note: "Modern component-driven web user interfaces and tooling" },
       { name: "Automated Testing", status: "used_in_projects", note: "Unit and integration test suites (440 passing tests in TAARAK)" },

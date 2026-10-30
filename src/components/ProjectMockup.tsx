@@ -115,6 +115,69 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
         </div>
       );
 
+    case 'subtitle-generator':
+    case 'subtitle_generator':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-[#0c0d14] text-zinc-300 font-mono text-[11px] p-3.5 border-b border-indigo-950/80 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+              <span className="ml-2 text-indigo-400 font-semibold text-[10px]">subtitlegen // ffmpeg-vad-edge-asr</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-indigo-950/90 text-indigo-300 border border-indigo-800/50">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+              NETFLIX / BBC · BYOK
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 my-auto z-10 pt-1.5">
+            <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded space-y-1">
+              <div className="text-zinc-500 text-[9px] flex items-center justify-between">
+                <span>VAD AUDIO SLICER</span>
+                <span className="text-emerald-400 font-semibold">16kHz mono</span>
+              </div>
+              <div className="text-zinc-100 font-semibold text-xs">
+                Silence-Aware Splitter
+              </div>
+              <div className="text-[10px] text-zinc-400 truncate">
+                Midpoint silence cap ≤20MB
+              </div>
+            </div>
+
+            <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded space-y-1">
+              <div className="text-zinc-500 text-[9px] flex items-center justify-between">
+                <span>ASR ENGINES</span>
+                <span className="text-indigo-400 font-semibold">Tri-Provider</span>
+              </div>
+              <div className="text-zinc-100 font-semibold text-xs">
+                Deepgram · Groq · Gemini
+              </div>
+              <div className="text-[10px] text-emerald-400">
+                ⚡ 196s full-ep runtime
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-zinc-900/80 border border-indigo-900/40 rounded p-2 text-[10px] space-y-1 z-10">
+            <div className="flex items-center justify-between text-zinc-400">
+              <span className="text-indigo-300 font-medium">00:00:19,465 ➔ 00:00:22,025</span>
+              <span className="text-emerald-400">✓ 0ms Time Drift</span>
+            </div>
+            <div className="text-zinc-200 truncate font-sans text-xs">
+              "Xiao Yan will restore the Xiao clan's glory."
+            </div>
+            <div className="text-[9px] text-zinc-500 flex items-center justify-between">
+              <span>Standard line length: 41/42 chars</span>
+              <span className="text-zinc-400">Reading rate: 15.2 CPS</span>
+            </div>
+          </div>
+        </div>
+      );
+
     case 'deployhub':
       return (
         <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>

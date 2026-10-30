@@ -121,6 +121,66 @@ export const projectsData: Project[] = [
     ]
   },
   {
+    id: "subtitle-generator",
+    title: "SubtitleGen AI",
+    tagline: "Ultra-fast cross-platform AI subtitle & dubbing engine with silence-aware VAD and multi-provider ASR (Deepgram, Groq, Gemini).",
+    category: "software",
+    featured: true,
+    status: "completed",
+    statusLabel: "v1.0.1 · Cross-Platform Desktop & Android",
+    period: "2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/subtitle_generator",
+    liveUrl: "https://github.com/AdityaPatra-dev/subtitle_generator/releases",
+    technologies: ["Flutter", "Dart", "FFmpeg", "Deepgram Nova-3", "Groq Whisper Large-v3", "Google Gemini 2.5 Flash", "Drift / SQLite", "Riverpod", "Linux Desktop", "Android"],
+    summary: "SubtitleGen AI is a production-grade, privacy-first cross-platform application (Android, Linux desktop) engineered to generate broadcast-quality subtitles (.srt / .vtt) from long-form audio and video (from 30s clips up to 3+ hour films). Integrates deterministic Edge media DSP (FFmpeg EBU R128 loudness normalization and silence-aware VAD chunking) with cloud ASR (Deepgram Nova-3, Groq Whisper Large-v3, Gemini 2.5 Flash) and contextual LLM translation.",
+    problem: "Transcribing long audio/video files (>25MB) using standard speech-to-text APIs fails due to provider payload limits. Naive time-based chunking cuts words or sentences in half, causing catastrophic transcription hallucination and out-of-sync subtitle timestamps.",
+    solution: "Engineered an automated Edge media processing engine using FFmpeg silence-detection filters that dynamically split audio streams strictly at natural conversational breath pauses (midpoint silence split with a 20MB hard-cap). Chunks are dispatched concurrently to Deepgram, Groq, or Gemini, re-stitched with time-offset realignment, and formatted strictly to Netflix/BBC broadcast subtitle guidelines (≤42 characters/line).",
+    myRole: "Architected and built the entire application: designed the Edge FFmpeg audio DSP pipeline, implemented multi-provider ASR coordinators (Deepgram, Groq, Gemini), developed the Riverpod state management and Drift SQLite database, and configured CI/CD release builds for native Linux and Android.",
+    architectureFlow: [
+      { title: "Raw Video", description: "Edge Media Engine ingests MP4/MKV/MOV and extracts audio", badge: "FFmpeg DSP" },
+      { title: "Loudness & VAD", description: "16kHz mono normalization (EBU R128) and silence-aware sentence boundary slicing", badge: "VAD Slicer" },
+      { title: "Multi-Engine ASR", description: "Concurrent speech-to-text dispatch to Deepgram Nova-3, Groq Whisper, or Gemini Flash", badge: "BYOK ASR" },
+      { title: "Chunk Stitcher", description: "Realigns millisecond cue timecodes across chunk boundaries with zero drift", badge: "Time Offset Engine" },
+      { title: "Contextual Translation", description: "Sliding-window LLM translation adhering to Netflix & BBC standards (≤42 chars/line)", badge: "LLaMA 3.3 / Gemini" },
+      { title: "Hardware Keystore", description: "Encrypted BYOK storage using Android Keystore and Linux Secret Service", badge: "Security" }
+    ],
+    engineeringDecisions: [
+      {
+        title: "Silence-Aware VAD vs fixed-interval chunking",
+        description: "Fixed 30s chunks chop words in mid-pronunciation. Splitting at the exact midpoint of acoustic silences ensures complete phrases, preventing hallucination."
+      },
+      {
+        title: "Multi-Provider ASR fallback (BYOK)",
+        description: "Allows users to route high-speed batch files through Groq LPU Whisper, ultra-fast long-form through Deepgram Nova-3, or multi-modal directly through Gemini."
+      },
+      {
+        title: "Broadcast standard compliance",
+        description: "Enforces Netflix/BBC rules (≤42 characters/line, max 2 lines per cue, 15-17 CPS reading speed limit) through a deterministic dynamic programming line-breaker."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Floating-point timestamp drift during multi-chunk stitching.",
+        resolution: "Solved by tracking microsecond sample offsets directly from FFmpeg probe headers rather than relying on wall-clock durations."
+      },
+      {
+        challenge: "Handling 3+ hour raw video files on resource-constrained mobile hardware.",
+        resolution: "Streamed audio directly to 16kHz mono Vorbis/WAV in a transient temp pipeline without decoding full video into RAM."
+      }
+    ],
+    whatILearned: [
+      "Advanced digital signal processing with FFmpeg (EBU R128 loudness filtering, silencedetect parsing).",
+      "Cross-platform hardware-backed keystore integration in Dart/Flutter across Linux Secret Service and Android Keystore.",
+      "Multi-provider ASR and LLM sliding-window batch translation."
+    ],
+    verifiedFacts: [
+      "Cross-platform native Linux desktop and Android APK (Flutter 3.44.8, Dart 3.12.2)",
+      "Silence-aware VAD chunking and EBU R128 loudness normalization via FFmpeg",
+      "Multi-provider BYOK speech-to-text: Deepgram Nova-3, Groq Whisper Large-v3, Google Gemini 2.5 Flash",
+      "Broadcast-standard subtitle formatting complying with Netflix & BBC guidelines (≤42 chars/line)"
+    ]
+  },
+  {
     id: "deployhub",
     title: "DeployHub",
     tagline: "Automated self-service application deployment platform inspired by Render & Railway for containerizing and deploying GitHub repos to Kubernetes.",
