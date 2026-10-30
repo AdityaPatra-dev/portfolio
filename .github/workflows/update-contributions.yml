@@ -1,9 +1,9 @@
-name: Update GitHub Contributions
+name: Update GitHub Contributions & Snake
 
 on:
   schedule:
-    # Runs everyday at 00:00 UTC (05:30 IST)
-    - cron: '0 0 * * *'
+    # Runs every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions UI
 
 permissions:
@@ -22,14 +22,19 @@ jobs:
           # Validate JSON format
           jq '.total.lastYear' public/github-contributions.json
 
+      - name: Sync latest contribution snake SVGs
+        run: |
+          curl -fsSL "https://raw.githubusercontent.com/AdityaPatra-dev/AdityaPatra-dev/main/output/github-contribution-grid-snake.svg" -o public/github-contribution-grid-snake.svg || true
+          curl -fsSL "https://raw.githubusercontent.com/AdityaPatra-dev/AdityaPatra-dev/main/output/github-contribution-grid-snake-dark.svg" -o public/github-contribution-grid-snake-dark.svg || true
+
       - name: Commit and push if changed
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions[bot]"
-          git add public/github-contributions.json
+          git add public/github-contributions.json public/github-contribution-grid-snake*.svg
           if git diff --staged --quiet; then
-            echo "No changes in contribution data."
+            echo "No changes in contribution data or snake assets."
           else
-            git commit -m "chore(data): auto-update github contributions [skip ci]"
+            git commit -m "chore(data): auto-update github contributions and snake assets [skip ci]"
             git push
           fi

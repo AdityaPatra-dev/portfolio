@@ -26,7 +26,7 @@ export const GithubHeatmap: React.FC = () => {
   const [viewMode, setViewMode] = useState<'snake' | 'grid'>('snake');
   const [hoveredDay, setHoveredDay] = useState<DayData | null>(null);
   const [contributions, setContributions] = useState<DayData[]>([]);
-  const [totalContributions, setTotalContributions] = useState<number>(124);
+  const [totalContributions, setTotalContributions] = useState<number>(641);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [isLive, setIsLive] = useState<boolean>(false);
@@ -36,67 +36,95 @@ export const GithubHeatmap: React.FC = () => {
       setIsRefreshing(true);
     }
 
-    // 1. Check local cache first if not force refreshing
-    if (!forceRefresh) {
-      try {
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          if (Date.now() - parsed.timestamp < CACHE_TTL_MS && parsed.data?.contributions?.length) {
-            setContributions(parsed.data.contributions);
-            setTotalContributions(parsed.data.total?.lastYear || 124);
-            setIsLoading(false);
-            setIsLive(true);
-            return;
+    // 1. Stale-While-Revalidate: Check local cache first for instant 0ms rendering
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed.data?.contributions?.length) {
+          setContributions(parsed.data.contributions);
+          setTotalContributions(parsed.data.total?.lastYear || 641);
+          setIsLoading(false);
+          setIsLive(true);
+          // If cache is fresh (< CACHE_TTL_MS) and not force refreshing, we still continue in background
+          if (!forceRefresh && Date.now() - parsed.timestamp < CACHE_TTL_MS) {
+            // Data is reasonably fresh; background revalidate will ensure no drift
           }
         }
-      } catch (e) {
-        console.warn('Could not read cached contributions', e);
       }
+    } catch (e) {
+      console.warn('Could not read cached contributions', e);
     }
 
-    // 2. Fetch from live API
+    // 2. Fetch from GitHub Raw (Fastly CDN, CORS-enabled, auto-updated by GitHub Actions)
+    try {
+      const rawUrl = `https://raw.githubusercontent.com/AdityaPatra-dev/portfolio/main/public/github-contributions.json?_t=${Math.floor(Date.now() / 180000)}`;
+      const rawRes = await fetch(rawUrl, { cache: 'no-cache' });
+      if (rawRes.ok) {
+        const rawData: ApiResponse = await rawRes.json();
+        if (rawData?.contributions && Array.isArray(rawData.contributions)) {
+          setContributions(rawData.contributions);
+          setTotalContributions(rawData.total?.lastYear ?? 641);
+          setIsLive(true);
+          setIsLoading(false);
+          setIsRefreshing(false);
+
+          try {
+            localStorage.setItem(
+              CACHE_KEY,
+              JSON.stringify({ timestamp: Date.now(), data: rawData })
+            );
+          } catch {
+            // ignore quota errors
+          }
+          return;
+        }
+      }
+    } catch (rawErr) {
+      console.warn('GitHub raw contributions fetch skipped, trying live API', rawErr);
+    }
+
+    // 3. Fallback: Fetch from jogruber live proxy API
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4500);
+      const timeoutId = setTimeout(() => controller.abort(), 6500);
 
       const liveUrl = `https://github-contributions-api.jogruber.de/v4/${profileData.githubUsername}?y=last`;
       const res = await fetch(liveUrl, { signal: controller.signal });
       clearTimeout(timeoutId);
 
-      if (!res.ok) throw new Error(`Live API status ${res.status}`);
-      const data: ApiResponse = await res.json();
+      if (res.ok) {
+        const data: ApiResponse = await res.json();
+        if (data?.contributions && Array.isArray(data.contributions)) {
+          setContributions(data.contributions);
+          setTotalContributions(data.total?.lastYear ?? 641);
+          setIsLive(true);
+          setIsLoading(false);
+          setIsRefreshing(false);
 
-      if (data?.contributions && Array.isArray(data.contributions)) {
-        setContributions(data.contributions);
-        setTotalContributions(data.total?.lastYear ?? 124);
-        setIsLive(true);
-        setIsLoading(false);
-        setIsRefreshing(false);
-
-        // Save to cache
-        try {
-          localStorage.setItem(
-            CACHE_KEY,
-            JSON.stringify({ timestamp: Date.now(), data })
-          );
-        } catch {
-          // ignore quota errors
+          try {
+            localStorage.setItem(
+              CACHE_KEY,
+              JSON.stringify({ timestamp: Date.now(), data })
+            );
+          } catch {
+            // ignore quota errors
+          }
+          return;
         }
-        return;
       }
     } catch (err) {
       console.warn('Primary contributions API failed, falling back to local snapshot', err);
     }
 
-    // 3. Fallback to bundled JSON snapshot
+    // 4. Ultimate Fallback: Local bundled JSON snapshot
     try {
       const fallbackRes = await fetch('/github-contributions.json');
       if (fallbackRes.ok) {
         const fallbackData: ApiResponse = await fallbackRes.json();
         if (fallbackData?.contributions) {
           setContributions(fallbackData.contributions);
-          setTotalContributions(fallbackData.total?.lastYear ?? 124);
+          setTotalContributions(fallbackData.total?.lastYear ?? 641);
           setIsLive(true);
           setIsLoading(false);
           setIsRefreshing(false);
@@ -113,6 +141,13 @@ export const GithubHeatmap: React.FC = () => {
 
   useEffect(() => {
     fetchContributions();
+
+    // Auto-refresh contributions in background every 10 minutes while tab is open
+    const refreshTimer = setInterval(() => {
+      fetchContributions();
+    }, 10 * 60 * 1000);
+
+    return () => clearInterval(refreshTimer);
   }, []);
 
   // Format into weeks of 7 days (Sunday to Saturday)

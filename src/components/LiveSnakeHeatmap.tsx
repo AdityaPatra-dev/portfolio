@@ -20,13 +20,18 @@ interface Point {
   y: number;
 }
 
+interface MoveStep {
+  dir: Point;
+  pos: Point;
+}
+
 const CELL_SIZE = 11;
 const CELL_PITCH = 14;
 const OFFSET_X = 16;
 const OFFSET_Y = 20;
-const INITIAL_LENGTH = 5;
+const INITIAL_LENGTH = 4;
 const MAX_LENGTH = 7;
-const TICK_MS = 110;
+const TICK_MS = 115;
 
 export const LiveSnakeHeatmap: React.FC<LiveSnakeHeatmapProps> = ({
   weeks,
@@ -38,13 +43,27 @@ export const LiveSnakeHeatmap: React.FC<LiveSnakeHeatmapProps> = ({
   const cols = weeks.length;
   const rows = 7;
 
+  // Find first active commit to spawn snake naturally
+  const findInitialSpawn = useCallback((): { startCol: number; startRow: number } => {
+    if (cols === 0) return { startCol: 2, startRow: 3 };
+    for (let c = 0; c < cols; c++) {
+      for (let r = 0; r < 7; r++) {
+        if (weeks[c]?.[r]?.level > 0) {
+          return { startCol: Math.max(c - 2, 0), startRow: r };
+        }
+      }
+    }
+    return { startCol: 2, startRow: 3 };
+  }, [cols, weeks]);
+
   // Snake coordinates
-  const [snake, setSnake] = useState<Point[]>([
-    { x: 3, y: 1 },
-    { x: 2, y: 1 },
-    { x: 1, y: 1 },
-    { x: 0, y: 1 },
-  ]);
+  const [snake, setSnake] = useState<Point[]>(() => {
+    return [
+      { x: 3, y: 3 },
+      { x: 2, y: 3 },
+      { x: 1, y: 3 },
+    ];
+  });
   const [direction, setDirection] = useState<Point>({ x: 1, y: 0 });
   const [eatenKeys, setEatenKeys] = useState<Set<string>>(new Set());
   const [eatenCount, setEatenCount] = useState<number>(0);
@@ -58,34 +77,29 @@ export const LiveSnakeHeatmap: React.FC<LiveSnakeHeatmapProps> = ({
   const eatenKeysRef = useRef<Set<string>>(eatenKeys);
   eatenKeysRef.current = eatenKeys;
 
-  // Reset snake when weeks data arrives or changes
+  // Reset snake to intelligent start point
   const resetGame = useCallback(() => {
     if (cols === 0) return;
-    // Find first active commit or default to (2, 2)
-    let startX = 2;
-    let startY = 2;
-    for (let c = 0; c < Math.min(cols, 10); c++) {
-      for (let r = 0; r < 7; r++) {
-        if (weeks[c]?.[r]?.level > 0) {
-          startX = Math.max(c - 1, 0);
-          startY = r;
-          break;
-        }
-      }
-    }
+    const { startCol, startRow } = findInitialSpawn();
     const initialSnake: Point[] = [];
     for (let i = 0; i < INITIAL_LENGTH; i++) {
-      initialSnake.push({ x: Math.max(startX - i, 0), y: startY });
+      initialSnake.push({ x: Math.max(startCol + (INITIAL_LENGTH - 1 - i), 0), y: startRow });
     }
     setSnake(initialSnake);
+    snakeRef.current = initialSnake;
     setDirection({ x: 1, y: 0 });
+    directionRef.current = { x: 1, y: 0 };
     setEatenKeys(new Set());
+    eatenKeysRef.current = new Set();
     setEatenCount(0);
     setLastEatenBurst(null);
-  }, [cols, weeks]);
+  }, [cols, findInitialSpawn]);
 
+  // Run initial spawn reset when weeks load for the first time
+  const hasInitializedRef = useRef(false);
   useEffect(() => {
-    if (cols > 0 && snake.length <= 1) {
+    if (cols > 0 && !hasInitializedRef.current) {
+      hasInitializedRef.current = true;
       resetGame();
     }
   }, [cols, resetGame]);
@@ -153,9 +167,43 @@ export const LiveSnakeHeatmap: React.FC<LiveSnakeHeatmapProps> = ({
     }
   };
 
-  // Main simulation tick
+  // Autonomous BFS Simulation Loop (Mathematically guaranteed to never freeze or self-trap)
   useEffect(() => {
     if (!isPlaying || isLoading || cols === 0) return;
+
+    // Helper BFS to find shortest path on grid avoiding obstacles
+    const bfs = (
+      start: Point,
+      isGoal: (p: Point) => boolean,
+      isBlocked: (p: Point) => boolean
+    ): MoveStep[] | null => {
+      const queue: { pos: Point; path: MoveStep[] }[] = [{ pos: start, path: [] }];
+      const visited = new Set<string>([`${start.x},${start.y}`]);
+      const moves: Point[] = [
+        { x: 1, y: 0 },
+        { x: -1, y: 0 },
+        { x: 0, y: 1 },
+        { x: 0, y: -1 },
+      ];
+
+      while (queue.length > 0) {
+        const current = queue.shift()!;
+        if (isGoal(current.pos)) return current.path;
+
+        for (const m of moves) {
+          const next = { x: current.pos.x + m.x, y: current.pos.y + m.y };
+          const key = `${next.x},${next.y}`;
+
+          if (next.x < 0 || next.x >= cols || next.y < 0 || next.y >= rows) continue;
+          if (visited.has(key)) continue;
+          if (isBlocked(next)) continue;
+
+          visited.add(key);
+          queue.push({ pos: next, path: [...current.path, { dir: m, pos: next }] });
+        }
+      }
+      return null;
+    };
 
     const interval = setInterval(() => {
       const currentSnake = snakeRef.current;
@@ -164,7 +212,7 @@ export const LiveSnakeHeatmap: React.FC<LiveSnakeHeatmapProps> = ({
       const head = currentSnake[0];
       if (!head) return;
 
-      // 1. Collect uneaten targets with level > 0
+      // 1. Collect all active targets (commit level > 0 and not yet eaten)
       const activeTargets: Point[] = [];
       for (let c = 0; c < cols; c++) {
         for (let r = 0; r < 7; r++) {
@@ -175,10 +223,11 @@ export const LiveSnakeHeatmap: React.FC<LiveSnakeHeatmapProps> = ({
         }
       }
 
-      // If all targets are eaten, respawn them for continuous fun!
+      // If all targets are eaten, respawn them for infinite continuous slithering!
       if (activeTargets.length === 0) {
-        setEatenKeys(new Set());
-        eatenKeysRef.current = new Set();
+        const clearedSet = new Set<string>();
+        eatenKeysRef.current = clearedSet;
+        setEatenKeys(clearedSet);
         for (let c = 0; c < cols; c++) {
           for (let r = 0; r < 7; r++) {
             if (weeks[c]?.[r]?.level > 0) {
@@ -188,102 +237,115 @@ export const LiveSnakeHeatmap: React.FC<LiveSnakeHeatmapProps> = ({
         }
       }
 
-      // 2. Find target with minimal Manhattan distance
-      let target: Point = { x: (head.x + 1) % cols, y: head.y };
+      // 2. Find nearest target by Manhattan distance
+      let nearestTarget: Point = { x: (head.x + 1) % cols, y: head.y };
       if (activeTargets.length > 0) {
         let minDist = Infinity;
         for (const t of activeTargets) {
           const dist = Math.abs(t.x - head.x) + Math.abs(t.y - head.y);
           if (dist < minDist) {
             minDist = dist;
-            target = t;
+            nearestTarget = t;
           }
         }
       }
 
-      // 3. Evaluate next moves (Up, Down, Left, Right)
-      const moves: Point[] = [
-        { x: 1, y: 0 },
-        { x: -1, y: 0 },
-        { x: 0, y: 1 },
-        { x: 0, y: -1 },
-      ];
+      // Snake body (excluding tail, since tail will move forward)
+      const bodySet = new Set<string>(
+        currentSnake.slice(0, -1).map((seg) => `${seg.x},${seg.y}`)
+      );
+      const isBlocked = (p: Point) => bodySet.has(`${p.x},${p.y}`);
 
-      const validMoves: { dir: Point; pos: Point; score: number }[] = [];
+      // 3. Primary Path: BFS to nearest commit target
+      let chosenMove: MoveStep | null = null;
+      const pathToTarget = bfs(
+        head,
+        (p) => p.x === nearestTarget.x && p.y === nearestTarget.y,
+        isBlocked
+      );
 
-      for (const m of moves) {
-        const nx = head.x + m.x;
-        const ny = head.y + m.y;
-
-        // Check grid boundary
-        if (nx < 0 || nx >= cols || ny < 0 || ny >= rows) continue;
-
-        // Prevent immediate 180° reversal into neck
-        if (
-          currentSnake.length > 1 &&
-          nx === currentSnake[1].x &&
-          ny === currentSnake[1].y
-        ) {
-          continue;
-        }
-
-        // Distance to target
-        let score = Math.abs(target.x - nx) + Math.abs(target.y - ny);
-
-        // Penalty if stepping into own body
-        const isBody = currentSnake.some(
-          (seg, idx) => idx > 0 && seg.x === nx && seg.y === ny
+      if (pathToTarget && pathToTarget.length > 0) {
+        chosenMove = pathToTarget[0];
+      } else {
+        // 4. Secondary Path (Safe Tail Chasing): BFS toward snake tail
+        const tail = currentSnake[currentSnake.length - 1];
+        const pathToTail = bfs(
+          head,
+          (p) => Math.abs(p.x - tail.x) + Math.abs(p.y - tail.y) <= 1,
+          isBlocked
         );
-        if (isBody) {
-          score += 500;
-        }
 
-        // Slight tie-breaker to favor continuing in the same direction (smoother line)
-        if (m.x === currentDir.x && m.y === currentDir.y) {
-          score -= 0.2;
-        }
+        if (pathToTail && pathToTail.length > 0) {
+          chosenMove = pathToTail[0];
+        } else {
+          // 5. Emergency Step: Any adjacent open unblocked cell
+          const moves: Point[] = [
+            currentDir, // Prefer continuing in same direction
+            { x: 1, y: 0 },
+            { x: -1, y: 0 },
+            { x: 0, y: 1 },
+            { x: 0, y: -1 },
+          ];
 
-        validMoves.push({ dir: m, pos: { x: nx, y: ny }, score });
-      }
-
-      let chosenMove = validMoves.sort((a, b) => a.score - b.score)[0];
-
-      // Fallback if trapped: allow any in-bounds move
-      if (!chosenMove) {
-        for (const m of moves) {
-          const nx = head.x + m.x;
-          const ny = head.y + m.y;
-          if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
-            chosenMove = { dir: m, pos: { x: nx, y: ny }, score: 999 };
-            break;
+          for (const m of moves) {
+            const nx = head.x + m.x;
+            const ny = head.y + m.y;
+            if (
+              nx >= 0 &&
+              nx < cols &&
+              ny >= 0 &&
+              ny < rows &&
+              !bodySet.has(`${nx},${ny}`) &&
+              !(currentSnake.length > 1 && nx === currentSnake[1].x && ny === currentSnake[1].y)
+            ) {
+              chosenMove = { dir: m, pos: { x: nx, y: ny } };
+              break;
+            }
           }
         }
       }
 
-      if (!chosenMove) return;
+      // 6. Fail-safe auto-rescue if somehow cornered completely
+      if (!chosenMove) {
+        const rescueTarget = nearestTarget || { x: 2, y: 3 };
+        const rescuedSnake: Point[] = [
+          { x: rescueTarget.x, y: rescueTarget.y },
+          { x: Math.max(rescueTarget.x - 1, 0), y: rescueTarget.y },
+        ];
+        snakeRef.current = rescuedSnake;
+        directionRef.current = { x: 1, y: 0 };
+        setSnake(rescuedSnake);
+        setDirection({ x: 1, y: 0 });
+        return;
+      }
 
       const nextHead = chosenMove.pos;
       const nextDir = chosenMove.dir;
       const cellKey = `${nextHead.x},${nextHead.y}`;
       const dayAtHead = weeks[nextHead.x]?.[nextHead.y];
       const justAte =
-        dayAtHead && dayAtHead.level > 0 && !currentEaten.has(cellKey);
+        dayAtHead && dayAtHead.level > 0 && !eatenKeysRef.current.has(cellKey);
 
-      let newEatenKeys = currentEaten;
+      let newEatenKeys = eatenKeysRef.current;
       if (justAte) {
-        newEatenKeys = new Set(currentEaten);
+        newEatenKeys = new Set(eatenKeysRef.current);
         newEatenKeys.add(cellKey);
+        eatenKeysRef.current = newEatenKeys;
         setEatenKeys(newEatenKeys);
         setEatenCount((prev) => prev + 1);
         setLastEatenBurst(nextHead);
       }
 
-      // Snake growth when eating
+      // Snake growth when eating commits
       const targetLength = justAte
         ? Math.min(currentSnake.length + 1, MAX_LENGTH)
         : currentSnake.length;
 
       const newSnake = [nextHead, ...currentSnake.slice(0, targetLength - 1)];
+
+      // Synchronously update refs to eliminate race conditions
+      snakeRef.current = newSnake;
+      directionRef.current = nextDir;
 
       setSnake(newSnake);
       setDirection(nextDir);
