@@ -68,6 +68,7 @@ export const profileData: ProfileData = {
       "Production MLOps: Model registries, distributed tracing & telemetry"
     ],
     building: [
+      "NetFreedom — Cross-platform Rust/Android privacy & anti-censorship connectivity platform",
       "CloudArena — AI-powered local Kubernetes chaos simulator & incident mentor",
       "TAARAK — Offline-first disaster response platform (SIH 2026, 440 tests)",
       "DeployHub — Automated self-service Kubernetes application deployment platform",

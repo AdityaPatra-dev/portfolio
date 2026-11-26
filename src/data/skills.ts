@@ -7,6 +7,7 @@ export const skillGroupsData: SkillGroup[] = [
     description: "Core languages used for systems, infrastructure automation, application development, and scientific computing.",
     skills: [
       { name: "Python", status: "used_in_projects", note: "Primary language for ML, RAG pipelines, FastAPI, and automation" },
+      { name: "Rust", status: "used_in_projects", note: "Systems networking, CLI/daemon tooling, and WireGuard (boringtun) in NetFreedom" },
       { name: "C", status: "used_in_projects", note: "Academic systems programming, data structures, and memory fundamentals" },
       { name: "C++", status: "used_in_projects", note: "Algorithmic problem solving, competitive programming, and performance" },
       { name: "Java", status: "used_in_projects", note: "Core CS curriculum, OOP principles, and design patterns" },

@@ -285,6 +285,65 @@ export const projectsData: Project[] = [
     ]
   },
   {
+    id: "netfreedom",
+    title: "NetFreedom",
+    tagline: "Next-generation cross-platform privacy, security & multi-mode anti-censorship platform for hostile networks.",
+    category: "software",
+    featured: true,
+    status: "completed",
+    statusLabel: "Active · v1.0.19",
+    period: "2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/NetFreedom",
+    technologies: ["Rust", "WireGuard (boringtun)", "ByeDPI (ciadpi)", "hev-socks5-tunnel", "Tauri v2", "Android VpnService", "Jetpack Compose", "nftables / WFP", "React 19", "TypeScript"],
+    summary: "NetFreedom is a cross-platform privacy, security, and anti-censorship connectivity platform engineered for hostile enterprise and campus Wi-Fi networks facing Deep Packet Inspection (DPI), DNS tampering, broken IPv6 routes, and ICMP blackholes. It orchestrates serverless ByeDPI desynchronization, Cloudflare WARP via pure-Rust boringtun WireGuard, and a hybrid chaining mode across Android, Linux, Windows, and Apple.",
+    problem: "Commercial VPNs route traffic through central servers with bandwidth caps and subscription fees, and are often blocked outright by enterprise/campus DPI firewalls or fail on broken dual-stack IPv6 networks.",
+    solution: "Built a multi-mode connectivity engine combining a TUN-to-SOCKS5 lwIP bridge (hev-socks5-tunnel) with built-in mapdns fake-IP resolution (198.18.0.2), serverless TCP/TLS desynchronization (ciadpi), pure-Rust WireGuard (boringtun), and an OS-level hardware killswitch (nftables/WFP).",
+    myRole: "Architected the Rust CLI/daemon workspace, integrated boringtun, byedpi, and hev-socks5-tunnel, built the Tauri v2 + React 19 desktop GUI, Android VpnService + Jetpack Compose app, and automated multi-platform CI/CD release pipelines.",
+    architectureFlow: [
+      { title: "TUN Interface", description: "Captures OS packets via Android VpnService, Linux TUN, or Windows wintun", badge: "TUN / L3" },
+      { title: "hev-socks5-tunnel", description: "lwIP C coroutine bridge with built-in mapdns (198.18.0.2) fake-IP DNS resolver", badge: "lwIP / mapdns" },
+      { title: "Smart Auto-Pilot", description: "Probes TCP SYN/ACK latency & DPI middleboxes to select optimal mode", badge: "Rust Engine" },
+      { title: "ByeDPI (ciadpi)", description: "Serverless TCP/TLS desynchronization, SNI splitting & out-of-order dispatch", badge: "Zero-Proxy DPI" },
+      { title: "boringtun WARP", description: "Pure-Rust userspace WireGuard tunnel for full encryption & hybrid chaining", badge: "WireGuard" },
+      { title: "Hardware Killswitch", description: "Fail-safe OS packet filtering preventing leaks if tunnel disconnects", badge: "nftables / WFP" }
+    ],
+    engineeringDecisions: [
+      {
+        title: "Four-tier adaptive connectivity modes",
+        description: "Supports Smart Auto-Pilot, serverless ByeDPI Desync (direct bandwidth, zero server cost), Cloudflare WARP via boringtun (full WireGuard encryption), and Hybrid Mode (ByeDPI + WARP chaining for firewalls blocking VPN handshakes)."
+      },
+      {
+        title: "Built-in mapdns fake-IP remote resolution (198.18.0.2)",
+        description: "Resolves domains to fake-IPs inside the tunnel and forwards domain names over SOCKS5, preventing plaintext DNS leaks to campus resolvers and eliminating dead IPv6 AAAA timeouts."
+      },
+      {
+        title: "Orchestrating audit-grade native engines",
+        description: "Combined hufrea/byedpi, heiher/hev-socks5-tunnel, cloudflare/boringtun, and signed wintun.dll rather than reinventing fragile low-level packet parsers."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Diagnosing network health when ICMP ping is blocked by campus firewalls.",
+        resolution: "Implemented TCP SYN/ACK handshake latency probes and automated DPI middlebox diagnostics in the Rust daemon."
+      },
+      {
+        challenge: "Shipping consistent native binaries across 4 Android ABIs, Linux, Windows, and Apple.",
+        resolution: "Automated cross-compilation in GitHub Actions producing universal/split Android APKs, Linux tarballs with systemd/polkit, Windows zip with PowerShell installer, and Apple xcframework."
+      }
+    ],
+    whatILearned: [
+      "Low-level L3/L4 packet routing, TUN interfaces, lwIP userspace TCP/IP stacks, and DPI desynchronization.",
+      "Cross-platform Rust + JNI + C99 FFI integration across Android VpnService, Linux nftables, and Windows WFP.",
+      "Designing fail-safe killswitches and automated leak verification suites."
+    ],
+    verifiedFacts: [
+      "Multi-platform releases (v1.0.19) for Android APKs, Linux, Windows, and Apple",
+      "Orchestrates Rust (boringtun), C99 (byedpi & hev-socks5-tunnel), Tauri v2, and Android JNI",
+      "Includes built-in mapdns (198.18.0.2) fake-IP resolver and OS-level killswitch",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
     id: "universal-file-studio",
     title: "Universal File Studio",
     tagline: "Local-first universal file conversion & processing studio powered by 9 CLI engines with interactive 3D visual pipelines.",
@@ -502,9 +561,63 @@ export const projectsData: Project[] = [
       "OPDS streaming protocol specifications and WebP lossless packaging standards."
     ],
     verifiedFacts: [
-      "57 passing automated unit tests documented in repository",
-      "Published on Docker Hub as adityapatra/manhua-extractor",
-      "Features curl_cffi JA3 TLS bypass, FlareSolverr sidecar, and OPDS server",
+      "91 passing automated unit tests documented in repository",
+      "Standalone Android APK (v1.3.1, embedded Python via Chaquopy) & Docker Hub (adityapatra/manhua-extractor)",
+      "Features curl_cffi JA3 TLS bypass, FlareSolverr sidecar, and OPDS v1.2 server",
+      "Public repository hosted on GitHub"
+    ]
+  },
+  {
+    id: "downloader-extension",
+    title: "Downloader Extension",
+    tagline: "Universal Media & File Downloader Manifest V3 browser extension with in-memory ISO-BMFF dual-track muxing.",
+    category: "software",
+    featured: false,
+    status: "completed",
+    statusLabel: "Completed ✅",
+    period: "2026",
+    githubUrl: "https://github.com/AdityaPatra-dev/Downloader_Extension",
+    technologies: ["JavaScript", "Chrome Manifest V3", "ISO-BMFF", "HLS.js", "declarativeNetRequest", "Offscreen API", "Service Workers"],
+    summary: "A zero-native-dependency Manifest V3 browser extension for Chrome, Edge, Brave, Opera, Vivaldi, and Arc that brings Soul Browser's media sniffing, anti-hotlink header replay, and dual-track HLS/DASH stream reassembly to desktop browsers.",
+    problem: "Modern adaptive streaming sites split video and AAC audio into separate CMAF/fMP4 playlists protected by Referer/Origin checks, forcing desktop users to rely on external CLI tools like FFmpeg or yt-dlp.",
+    solution: "Reverse-engineered Soul Browser's APK with REA and ported its media classifier, declarativeNetRequest header spoofer, and ISO-BMFF box-level muxer into pure browser JavaScript using Manifest V3 Offscreen documents and Service Workers.",
+    myRole: "Reverse-engineered the mobile media extraction pipeline, implemented the pure-JS ISO-BMFF dual-track muxer (moof/mdat/tfhd), built the in-popup HLS preview player with resolution selector, and authored the MV3 background classifier.",
+    architectureFlow: [
+      { title: "Request Interceptor", description: "Service worker & media classifier inspect MIME types and filter .m4s/.ts chunks", badge: "MV3 Worker" },
+      { title: "DOM & Media Sniffer", description: "Scans <img>, <picture>, srcset, and CSS backgrounds while filtering 1px beacons", badge: "Content Script" },
+      { title: "Anti-403 Header Replay", description: "Injects authentic Referer & strips Origin via declarativeNetRequestWithHostAccess", badge: "DNR Bypass" },
+      { title: "ISO-BMFF Muxer", description: "Patches track_id=2 on audio boxes and interleaves video + AAC into .mp4", badge: "Offscreen JS" },
+      { title: "Popup Preview & UI", description: "Bundled offline hls.min.js player with quality picker and AbortController cancel", badge: "Popup UI" }
+    ],
+    engineeringDecisions: [
+      {
+        title: "Pure-JS ISO-BMFF box manipulation without FFmpeg",
+        description: "Instead of bundling heavy WebAssembly FFmpeg, the offscreen muxer directly patches trak, trex, and tfhd boxes in ArrayBuffers to interleave video and AAC audio tracks into a standard .mp4."
+      },
+      {
+        title: "Manifest V3 declarativeNetRequest header replay",
+        description: "Uses Chrome's declarativeNetRequestWithHostAccess API to replay legitimate session Referer headers and bypass CDN 403 Forbidden anti-hotlink checks."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Synchronizing separate CMAF video and audio playlists in browser memory.",
+        resolution: "Extracted audio trak/trex from init.mp4, assigned track_id=2 across every incoming audio tfhd box, and interleaved segments sequentially."
+      },
+      {
+        challenge: "Preventing hung browser resources when aborting multi-chunk stream downloads.",
+        resolution: "Integrated immediate AbortController signals across concurrent segment fetchers in the offscreen document."
+      }
+    ],
+    whatILearned: [
+      "Binary ISO-BMFF / fMP4 container structure (moov, mvex, trak, trex, moof, tfhd, mdat).",
+      "Chrome Extension Manifest V3 architecture: Service Workers, Offscreen Documents, and declarativeNetRequest.",
+      "Clean-room porting of mobile WebView interception logic to standard web extension APIs."
+    ],
+    verifiedFacts: [
+      "Manifest V3 extension supporting Chrome, Edge, Brave, Opera, Vivaldi, and Arc",
+      "In-memory ISO-BMFF dual-track muxer with zero native dependencies",
+      "Includes in-popup HLS preview player, quality selector, and batch downloader",
       "Public repository hosted on GitHub"
     ]
   },

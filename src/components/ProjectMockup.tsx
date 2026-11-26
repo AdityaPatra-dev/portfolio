@@ -760,6 +760,94 @@ export const ProjectMockup: React.FC<ProjectMockupProps> = ({ projectId, classNa
         </div>
       );
 
+    case 'netfreedom':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-[#080d1a] text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#a855f7_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-purple-500/80" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-500/80" />
+              <span className="ml-2 text-zinc-400 text-[10px]">netfreedom // multi-mode-vpn</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/50">
+              RUST · v1.0.19
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="grid grid-cols-3 gap-1.5 text-[10px]">
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">TUNNEL</div>
+                <div className="text-purple-300 font-semibold">boringtun</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">DPI DESYNC</div>
+                <div className="text-emerald-400 font-semibold">ByeDPI</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">FAKE-IP DNS</div>
+                <div className="text-blue-300 font-semibold">198.18.0.2</div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Killswitch: nftables / WFP</span>
+              <span className="text-emerald-400">TUN Connected ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>Android · Linux · Windows · Apple</span>
+            <span className="text-zinc-400">Tauri v2 &amp; JNI</span>
+          </div>
+        </div>
+      );
+
+    case 'downloader-extension':
+      return (
+        <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-[#0b101b] text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
+          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:14px_14px] pointer-events-none" />
+
+          <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 z-10">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-indigo-500/80" />
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+              <span className="ml-2 text-zinc-400 text-[10px]">mv3-sniffer // iso-bmff-muxer</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-indigo-950/80 text-indigo-300 border border-indigo-800/50">
+              MANIFEST V3
+            </span>
+          </div>
+
+          <div className="my-auto z-10 pt-2 space-y-2">
+            <div className="grid grid-cols-2 gap-2 text-[10px]">
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">DUAL-TRACK MUXER</div>
+                <div className="text-indigo-300 font-semibold">fMP4 + AAC → .mp4</div>
+              </div>
+              <div className="bg-zinc-900/90 border border-zinc-800 p-2 rounded">
+                <div className="text-[9px] text-zinc-500">HEADER REPLAY</div>
+                <div className="text-emerald-400 font-semibold">Anti-403 DNR</div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900/70 border border-zinc-800 p-2 rounded text-[10px] flex items-center justify-between">
+              <span className="text-zinc-400">Preview: 1080p H.264 / AV1 · Audio Only</span>
+              <span className="text-emerald-400">Zero FFmpeg ✓</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 z-10 pt-1 border-t border-zinc-900">
+            <span>Chrome · Edge · Brave · Arc</span>
+            <span className="text-zinc-400">Offscreen ISO-BMFF</span>
+          </div>
+        </div>
+      );
+
     case 'web-scrapper-wikipedia':
       return (
         <div className={`relative w-full aspect-[16/10] overflow-hidden rounded-t bg-zinc-950 text-zinc-300 font-mono text-[11px] p-3.5 border-b border-zinc-800 flex flex-col justify-between select-none ${className}`}>
