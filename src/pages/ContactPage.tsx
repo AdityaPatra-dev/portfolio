@@ -117,7 +117,7 @@ export const ContactPage: React.FC = () => {
               <a
                 href={profileData.githubUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
               >
                 <span>github.com/{profileData.githubUsername}</span>
@@ -130,7 +130,7 @@ export const ContactPage: React.FC = () => {
               <a
                 href={profileData.dockerHubUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
               >
                 <span>hub.docker.com/u/adityapatra</span>
@@ -143,7 +143,7 @@ export const ContactPage: React.FC = () => {
               <a
                 href={profileData.huggingFaceUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
               >
                 <span>huggingface.co/Aditya9438</span>
@@ -156,10 +156,36 @@ export const ContactPage: React.FC = () => {
               <a
                 href={profileData.linkedinUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
               >
                 <span>linkedin.com/in/aditya-patra-0a6530289</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
+              </a>
+            </div>
+
+            <div className="flex items-baseline justify-between py-1 border-b border-dashed border-zinc-100 dark:border-zinc-800/80 pb-2">
+              <span className="text-zinc-500 dark:text-zinc-400">Hashnode:</span>
+              <a
+                href={profileData.hashnodeUrl}
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
+              >
+                <span>hashnode.com/@AdityaPatra</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
+              </a>
+            </div>
+
+            <div className="flex items-baseline justify-between py-1 border-b border-dashed border-zinc-100 dark:border-zinc-800/80 pb-2">
+              <span className="text-zinc-500 dark:text-zinc-400">Instagram:</span>
+              <a
+                href={profileData.instagramUrl}
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
+              >
+                <span>instagram.com/aditya_patra_75</span>
                 <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
               </a>
             </div>
@@ -169,7 +195,7 @@ export const ContactPage: React.FC = () => {
               <a
                 href={profileData.twitterUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
               >
                 <span>x.com/Aditya_patra943</span>
@@ -182,7 +208,7 @@ export const ContactPage: React.FC = () => {
               <a
                 href={profileData.youtubeUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
               >
                 <span>youtube.com/@Aditya_Learns_tech</span>

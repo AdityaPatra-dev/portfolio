@@ -20,7 +20,13 @@ export const ContactTile: React.FC<ContactTileProps> = ({
     <a
       href={href}
       target={external ? '_blank' : undefined}
-      rel={external ? 'noopener noreferrer' : undefined}
+      rel={
+        external
+          ? href.startsWith('http')
+            ? 'me noopener noreferrer'
+            : 'noopener noreferrer'
+          : undefined
+      }
       className="group relative flex flex-col justify-between p-3.5 rounded-lg border border-dashed border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 bg-white/70 dark:bg-[#18191e]/50 hover:bg-white dark:hover:bg-[#18191e] transition-all duration-150 hover:-translate-y-0.5"
     >
       <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400">

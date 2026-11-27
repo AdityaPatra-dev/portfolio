@@ -68,7 +68,7 @@ export const Navbar: React.FC = () => {
           <a
             href={profileData.githubUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
             aria-label="GitHub profile"
             className="text-zinc-600 dark:text-zinc-400 hover:text-navy dark:hover:text-zinc-100 transition-colors"
           >
@@ -123,7 +123,7 @@ export const Navbar: React.FC = () => {
             <a
               href={profileData.githubUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="me noopener noreferrer"
               className="hover:text-navy dark:hover:text-white"
             >
               GitHub ↗
@@ -131,7 +131,7 @@ export const Navbar: React.FC = () => {
             <a
               href={profileData.linkedinUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="me noopener noreferrer"
               className="hover:text-navy dark:hover:text-white"
             >
               LinkedIn ↗

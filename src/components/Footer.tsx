@@ -15,15 +15,39 @@ export const Footer: React.FC = () => {
           <a
             href={profileData.githubUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
             className="hover:text-navy dark:hover:text-blue-400 transition-colors"
           >
             GitHub
           </a>
           <a
+            href={profileData.linkedinUrl}
+            target="_blank"
+            rel="me noopener noreferrer"
+            className="hover:text-navy dark:hover:text-blue-400 transition-colors"
+          >
+            LinkedIn
+          </a>
+          <a
+            href={profileData.hashnodeUrl}
+            target="_blank"
+            rel="me noopener noreferrer"
+            className="hover:text-navy dark:hover:text-blue-400 transition-colors"
+          >
+            Hashnode
+          </a>
+          <a
+            href={profileData.instagramUrl}
+            target="_blank"
+            rel="me noopener noreferrer"
+            className="hover:text-navy dark:hover:text-blue-400 transition-colors"
+          >
+            Instagram
+          </a>
+          <a
             href={profileData.dockerHubUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
             className="hover:text-navy dark:hover:text-blue-400 transition-colors"
           >
             Docker Hub
@@ -31,18 +55,10 @@ export const Footer: React.FC = () => {
           <a
             href={profileData.huggingFaceUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
             className="hover:text-navy dark:hover:text-blue-400 transition-colors"
           >
             Hugging Face
-          </a>
-          <a
-            href={profileData.linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-navy dark:hover:text-blue-400 transition-colors"
-          >
-            LinkedIn
           </a>
           <a
             href={`mailto:${profileData.email}`}
