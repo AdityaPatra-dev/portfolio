@@ -44,7 +44,7 @@ export const profileData: ProfileData = {
   phone: "+91 9437234075",
   githubUrl: "https://github.com/AdityaPatra-dev",
   githubUsername: "AdityaPatra-dev",
-  linkedinUrl: "https://www.linkedin.com/in/aditya-patra-0a6530289/",
+  linkedinUrl: "https://www.linkedin.com/in/aditya-patra-dev/",
   dockerHubUrl: "https://hub.docker.com/u/adityapatra",
   huggingFaceUrl: "https://huggingface.co/Aditya9438",
   twitterUrl: "https://x.com/Aditya_patra943",
