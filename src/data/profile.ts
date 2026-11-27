@@ -50,7 +50,7 @@ export const profileData: ProfileData = {
   twitterUrl: "https://x.com/Aditya_patra943",
   youtubeUrl: "https://youtube.com/@Aditya_Learns_tech",
   hashnodeUrl: "https://hashnode.com/@AdityaPatra",
-  instagramUrl: "https://www.instagram.com/aditya_patra_75/",
+  instagramUrl: "https://www.instagram.com/adityapatradev/",
   resumePdfUrl: "/AdityaPatra_CV.pdf",
   mantra: "Build → Break → Learn → Automate → Ship → Repeat",
   shortBio: "2nd-year B.Tech CSE student at KIIT specializing in Cloud Infrastructure, DevOps, and Machine Learning Systems (MLOps). Passionate about container orchestration, Linux internals, resilient system architectures, and practical ML pipelines.",

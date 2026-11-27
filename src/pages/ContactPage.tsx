@@ -185,7 +185,7 @@ export const ContactPage: React.FC = () => {
                 rel="me noopener noreferrer"
                 className="text-navy dark:text-blue-400 hover:text-navy-hover dark:hover:text-blue-300 inline-flex items-center gap-1 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-navy dark:hover:decoration-blue-400"
               >
-                <span>instagram.com/aditya_patra_75</span>
+                <span>instagram.com/adityapatradev</span>
                 <ArrowUpRight className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
               </a>
             </div>
